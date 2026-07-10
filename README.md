@@ -2,7 +2,7 @@
   <img src="public/oz_icon_256.png" width="120" height="120" alt="Oz" />
   <h1>Oz Website</h1>
 
-  <p><strong>The website and landing page for <a href="https://github.com/crynta/oz-ai">Oz</a>.</strong></p>
+  <p><strong>The website and landing page for <a href="https://github.com/codecollab-co/oz">Oz</a>.</strong></p>
 
   <p>
     <img src="https://img.shields.io/badge/license-Apache--2.0-green" alt="license" />
@@ -21,7 +21,7 @@
 
 The source for [oz.app](https://oz.app), the landing page for **Oz**, a lightweight terminal-first AI-native dev workspace. Open-sourced because people kept asking how the animated background and the overall design were built, so here it is, end to end.
 
-The product itself lives in a separate repo: **[crynta/oz-ai](https://github.com/crynta/oz-ai)**.
+The product itself lives in a separate repo: **[codecollab-co/oz](https://github.com/codecollab-co/oz)**.
 
 ## The animated background
 

@@ -97,7 +97,7 @@ export default function OG() {
         }}
       >
         <span>{SITE.domain}</span>
-        <span>github.com/crynta/oz-ai</span>
+        <span>github.com/codecollab-co/oz</span>
       </div>
     </div>,
     { ...size }

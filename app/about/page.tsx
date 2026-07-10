@@ -53,12 +53,9 @@ export default function AboutPage() {
 
         <h2>Who builds it</h2>
         <p>
-          Mostly me -{" "}
-          <Link href={SITE.youtube} target="_blank" rel="noreferrer">
-            crynta
-          </Link>
-          . Oz started as a side project because I wanted a faster terminal
-          with AI built in, not bolted on. It&apos;s grown from there.
+          Mostly one person, plus the CodeCollab team. Oz started as a side
+          project because we wanted a faster terminal with AI built in, not
+          bolted on. It&apos;s grown from there.
         </p>
         <p>
           Contributions, bug reports, and feature requests are welcome on{" "}

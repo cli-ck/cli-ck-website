@@ -23,7 +23,7 @@ export default async function Page(props: {
 
   const slugs = params.slug ?? []
   const slugPath = slugs.join("/")
-  const gitUrl = `https://github.com/crynta/Oz-website/blob/main/content/docs/${page.path}`
+  const gitUrl = `https://github.com/codecollab-co/oz-website/blob/main/content/docs/${page.path}`
   const rawMarkdownUrl = `/docs/${slugPath ? slugPath + ".md" : "index.md"}`
   const sciraUrl = `https://scira.app/?q=https://oz.app/docs/${slugPath ? slugPath + ".md" : "index.md"}`
   const chatgptUrl = `https://chatgpt.com/?q=Read+this+page:+https://oz.app/docs/${slugPath ? slugPath + ".md" : "index.md"}`

@@ -1,4 +1,4 @@
-import { GithubIcon, YoutubeIcon } from "@hugeicons/core-free-icons"
+import { GithubIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -75,21 +75,6 @@ export function GlobalFooter() {
               />
               codecollab-co/oz
             </Link>
-            {/*
-            <Link
-              href={SITE.youtube}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
-            >
-              <HugeiconsIcon
-                icon={YoutubeIcon}
-                className="size-3.5"
-                strokeWidth={2}
-              />
-             crynta
-            </Link>
-            */}
           </div>
         </div>
       </div>
