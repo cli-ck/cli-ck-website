@@ -28,17 +28,22 @@ export default function OG() {
             width: 56,
             height: 56,
             borderRadius: 14,
-            background: "linear-gradient(135deg, #fff 0%, #94a3b8 100%)",
+            background: "#10b981",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            color: "#0a0a0a",
-            fontSize: 32,
-            fontWeight: 800,
-            letterSpacing: -1,
           }}
         >
-          O
+          <svg width="34" height="34" viewBox="0 0 100 100">
+            <path
+              d="M40 37 L57 50 L40 63"
+              fill="none"
+              stroke="#04160f"
+              strokeWidth="9"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
         <div style={{ display: "flex", fontSize: 36, fontWeight: 700, letterSpacing: -1 }}>
           {SITE.name}

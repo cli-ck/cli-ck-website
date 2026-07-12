@@ -104,11 +104,11 @@
 
 .dark {
     /* ====================================================================== */
-    /* NEW PURPLE-BLUE / INDIGO SHADE (Option A: Oz Logo Cohesive)            */
+    /* EMERALD SHADE (matches the Oz prompt-caret logo, #10B981)              */
     /* ====================================================================== */
-    --background: oklch(0.155 0.032 280.0);
-    --card: oklch(0.205 0.035 280.0);
-    --popover: oklch(0.205 0.035 280.0);
+    --background: oklch(0.155 0.028 162.0);
+    --card: oklch(0.205 0.030 162.0);
+    --popover: oklch(0.205 0.030 162.0);
 
     /* ====================================================================== */
     /* LEGACY BLUISH-GRAY SHADE (Uncomment below and comment above to revert) */

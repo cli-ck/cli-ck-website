@@ -26,9 +26,9 @@ export function AccentBackdrop() {
           edgeFadeWidth={0}
           colorCycleSpeed={0.5}
           brightness={isDark ? 0.28 : 0.55}
-          color1="#4f46e5"
-          color2="#06b6d4"
-          color3="#8b5cf6"
+          color1="#047857"
+          color2="#10b981"
+          color3="#6ee7b7"
           enableMouseInteraction
           mouseInfluence={1.8}
         />
