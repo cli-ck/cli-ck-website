@@ -9,6 +9,79 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.2.5",
+    date: "27.07.2026",
+    highlight:
+      "Full Language Server Protocol (LSP) support - diagnostics, hover, go-to-definition, completion, and formatting across 20 languages.",
+    groups: [
+      {
+        kind: "Added",
+        items: [
+          "LSP: in-editor diagnostics, hover, go-to-definition, completion, format, references, and rename, with 20 built-in server presets (TypeScript, rust-analyzer, Pyright, Ruff, gopls, clangd, zls, and more) plus custom server support and a status indicator.",
+          "Settings → Agents: click anywhere on a tile to activate it, plus a new details view (eye icon) showing an agent's name, description, and instructions - read-only for built-in agents, with an edit hand-off for custom ones.",
+        ],
+      },
+      {
+        kind: "Changed",
+        items: [
+          "AI model catalog refreshed: added GPT-5.6, Claude Sonnet 5, and Grok 4.5; dropped deprecated/redirected models.",
+          "Settings: voice-input and autocomplete model dropdowns now only show providers you've actually connected, matching the chat-model picker; local whisper.cpp support now has its own setup row with a live reachability check.",
+        ],
+      },
+      {
+        kind: "Fixed",
+        items: [
+          'AI chat no longer masks real errors behind a generic "An error occurred." message - the actual provider/model/tool error is now shown.',
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.2.4",
+    date: "13.07.2026",
+    highlight:
+      "New emerald brand identity, working auto-update, and a faster native TypeScript toolchain.",
+    groups: [
+      {
+        kind: "Changed",
+        items: [
+          'Brand: new flat emerald "prompt-caret" logo across the app, installers, and mobile icon sets, replacing the old glossy mark.',
+          'Settings: the chat-model picker now shows "Add a provider to choose a model" while no provider is configured, instead of a locked-looking default.',
+        ],
+      },
+      {
+        kind: "Fixed",
+        items: [
+          "Auto-update: releases now publish a signed `latest.json` (updater signing key configured), so in-app update checks work instead of failing to fetch a manifest.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.2.3",
+    date: "12.07.2026",
+    highlight:
+      "Friction-free install for unsigned test builds on macOS, Windows, and Linux.",
+    groups: [
+      {
+        kind: "Added",
+        items: [
+          "`oz install` and `oz uninstall` subcommands.",
+          "README guidance for installing unsigned test builds across all three platforms.",
+        ],
+      },
+      {
+        kind: "Fixed",
+        items: [
+          "npm launcher (`@codecollab.co/oz`) now installs Oz where the OS expects it: `/Applications` (macOS), a Start Menu shortcut (Windows), and a `.desktop` entry (Linux), so Oz appears as a normally installed app.",
+          'macOS: strip the `com.apple.quarantine` flag and repair the ad-hoc signature on install, resolving the "Oz is damaged" Gatekeeper error on Apple Silicon.',
+          "Windows: clear the mark-of-the-web (`Unblock-File`) to avoid SmartScreen prompts.",
+          "Launcher now starts Oz detached via `open` / spawn, freeing the terminal instead of holding it open until quit.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.2.2",
     date: "25.06.2026",
     highlight:
@@ -217,7 +290,8 @@ export const CHANGELOG: ChangelogEntry[] = [
   },
   {
     version: "0.1.4",
-    highlight: "Web preview tab, editor tabs split, local LLM support, AI autocomplete.",
+    highlight:
+      "Web preview tab, editor tabs split, local LLM support, AI autocomplete.",
     groups: [
       {
         kind: "Added",
@@ -288,7 +362,8 @@ export const CHANGELOG: ChangelogEntry[] = [
   },
   {
     version: "0.1.0",
-    highlight: "First prototype: AI side panel, status bar, and WebGL terminal support.",
+    highlight:
+      "First prototype: AI side panel, status bar, and WebGL terminal support.",
     groups: [
       {
         kind: "Added",
