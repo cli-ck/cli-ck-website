@@ -32,6 +32,7 @@ export const CHANGELOG: ChangelogEntry[] = [
         kind: "Fixed",
         items: [
           'AI chat no longer masks real errors behind a generic "An error occurred." message - the actual provider/model/tool error is now shown.',
+          'Settings → About: the "Build" field no longer shows a stale hardcoded version; the "Website" link no longer reads "(Coming soon)" and now opens the real site.',
         ],
       },
     ],
