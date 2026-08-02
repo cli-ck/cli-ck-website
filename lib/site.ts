@@ -2,15 +2,15 @@ export const VERSION = "0.2.4"
 
 export const SITE = {
   name: "Oz",
-  domain: "codecollab-co.github.io/oz-website",
-  url: "https://codecollab-co.github.io/oz-website",
+  domain: "my-oz.github.io/oz-website",
+  url: "https://my-oz.github.io/oz-website",
   tagline: "Terminal-first AI-native dev workspace",
   description:
     "Oz is a lightweight AI terminal with a built-in editor, AI agents, voice input, and live web preview. 7 MB on disk, 300 ms cold start. Free and open source. BYOK or fully local via LM Studio.",
-  github: "https://github.com/codecollab-co/oz",
-  githubReleases: "https://github.com/codecollab-co/oz/releases",
-  issues: "https://github.com/codecollab-co/oz/issues",
-  websiteRepo: "https://github.com/codecollab-co/oz-website",
+  github: "https://github.com/my-oz/oz",
+  githubReleases: "https://github.com/my-oz/oz/releases",
+  issues: "https://github.com/my-oz/oz/issues",
+  websiteRepo: "https://github.com/my-oz/oz-website",
   aur: "https://aur.archlinux.org/packages/oz-bin",
   demoVideoId: "kykgXa7sm1g",
   demoVideoUrl: "https://youtu.be/kykgXa7sm1g",

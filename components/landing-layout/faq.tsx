@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: "Where do I report bugs or request features?",
-    a: "Open an issue on GitHub at github.com/codecollab-co/oz - we read everything.",
+    a: "Open an issue on GitHub at github.com/my-oz/oz - we read everything.",
   },
 ]
 

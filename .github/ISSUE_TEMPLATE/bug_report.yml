@@ -7,14 +7,14 @@ body:
       value: |
         Thanks for taking the time to report a website bug. Please fill in the fields below — it makes triage much faster.
 
-        For **security issues**, do NOT open an issue. See [SECURITY.md](https://github.com/codecollab-co/oz/blob/main/SECURITY.md).
+        For **security issues**, do NOT open an issue. See [SECURITY.md](https://github.com/my-oz/oz/blob/main/SECURITY.md).
 
   - type: input
     id: page-url
     attributes:
       label: Affected page URL
       description: The URL or path of the page where the issue occurs.
-      placeholder: "https://codecollab-co.github.io/oz-website/docs/features/editor/"
+      placeholder: "https://my-oz.github.io/oz-website/docs/features/editor/"
     validations:
       required: true
 

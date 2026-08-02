@@ -73,7 +73,7 @@ export function GlobalFooter() {
                 className="size-3.5"
                 strokeWidth={2}
               />
-              codecollab-co/oz
+              my-oz/oz
             </Link>
           </div>
         </div>

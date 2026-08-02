@@ -102,7 +102,7 @@ export default function OG() {
         }}
       >
         <span>{SITE.domain}</span>
-        <span>github.com/codecollab-co/oz</span>
+        <span>github.com/my-oz/oz</span>
       </div>
     </div>,
     { ...size }

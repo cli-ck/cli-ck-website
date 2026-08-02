@@ -7,7 +7,7 @@ body:
       value: |
         Thanks for the idea! A short conversation here saves everyone time before writing any code or content.
 
-        This issue tracker is for the **Oz website and documentation**. For app features, please open an issue in the main [Oz repo](https://github.com/codecollab-co/oz).
+        This issue tracker is for the **Oz website and documentation**. For app features, please open an issue in the main [Oz repo](https://github.com/my-oz/oz).
 
   - type: textarea
     id: problem
