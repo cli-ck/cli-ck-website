@@ -6,7 +6,7 @@ const withMDX = createMDX();
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: '/oz-website',
+  basePath: '/cli-ck-website',
   images: {
     unoptimized: true,
     qualities: [75, 92],

@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 // Load logo once during module load / build time
 let logoDataUrl = ""
 try {
-  const logoPath = path.join(process.cwd(), "public/oz_icon_256.png")
+  const logoPath = path.join(process.cwd(), "public/cli_ck_icon_256.png")
   const logoBuffer = fs.readFileSync(logoPath)
   logoDataUrl = `data:image/png;base64,${logoBuffer.toString("base64")}`
 } catch (e) {
@@ -130,7 +130,7 @@ export async function GET(
               letterSpacing: -0.5,
             }}
           >
-            Oz
+            cli-ck
           </span>
           <span
             style={{
@@ -151,7 +151,7 @@ export async function GET(
             fontFamily: "monospace",
           }}
         >
-          oz.app/docs/{page.slugs.join("/")}
+          cli-ck.app/docs/{page.slugs.join("/")}
         </div>
       </div>
 
@@ -219,7 +219,7 @@ export async function GET(
               display: "flex",
             }}
           >
-            oz
+            cli-ck
           </div>
           <div
             style={{

@@ -8,8 +8,8 @@ import { ContentSection, SectionEyebrow, SectionHeading, SectionLead } from "./c
 
 const faqs = [
   {
-    q: "Is Oz really free?",
-    a: "Yes. Oz is free and fully open-source. There's no paid tier, no account, and no telemetry by default. Star us on GitHub if it saves you time.",
+    q: "Is cli-ck really free?",
+    a: "Yes. cli-ck is free and fully open-source. There's no paid tier, no account, and no telemetry by default. Star us on GitHub if it saves you time.",
   },
   {
     q: "Do I need an account or sign-up?",
@@ -21,11 +21,11 @@ const faqs = [
   },
   {
     q: "How do local models work?",
-    a: "Point Oz at a running LM Studio (or any OpenAI-compatible local server), pick a model, and you're done. Inference stays on your machine - your code, prompts, and diffs never leave the box.",
+    a: "Point cli-ck at a running LM Studio (or any OpenAI-compatible local server), pick a model, and you're done. Inference stays on your machine - your code, prompts, and diffs never leave the box.",
   },
   {
     q: "Is my code sent anywhere?",
-    a: "Only to the provider you explicitly configure. With local models, nothing leaves your machine. Oz adds zero analytics around your code or prompts.",
+    a: "Only to the provider you explicitly configure. With local models, nothing leaves your machine. cli-ck adds zero analytics around your code or prompts.",
   },
   {
     q: "Which OSes are supported?",
@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: "Where do I report bugs or request features?",
-    a: "Open an issue on GitHub at github.com/my-oz/oz - we read everything.",
+    a: "Open an issue on GitHub at github.com/cli-ck/cli-ck - we read everything.",
   },
 ]
 

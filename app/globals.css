@@ -50,7 +50,7 @@
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
 
-    /* Fumadocs Theme Customizations to match Oz Website perfectly */
+    /* Fumadocs Theme Customizations to match cli-ck Website perfectly */
     --color-fd-background: var(--background);
     --color-fd-foreground: var(--foreground);
     --color-fd-card: var(--card);
@@ -104,7 +104,7 @@
 
 .dark {
     /* ====================================================================== */
-    /* EMERALD SHADE (matches the Oz prompt-caret logo, #10B981)              */
+    /* EMERALD SHADE (matches the cli-ck prompt-caret logo, #10B981)              */
     /* ====================================================================== */
     --background: oklch(0.155 0.028 162.0);
     --card: oklch(0.205 0.030 162.0);

@@ -26,7 +26,7 @@ export default function AboutPage() {
     <PageShellWrapper>
       <PageHero
         eyebrow="About"
-        title="About Oz"
+        title="About cli-ck"
         lead="A terminal, editor, web preview, and AI in one small binary. Free, open source, mostly built by one person."
         meta={
           <>
@@ -40,7 +40,7 @@ export default function AboutPage() {
       <Prose>
         <h2>What it is</h2>
         <p>
-          Oz is a desktop app that combines a terminal, a code editor, a file
+          cli-ck is a desktop app that combines a terminal, a code editor, a file
           explorer, a web preview, and an AI workflow. It runs as a single ~7 MB
           binary on macOS, Linux, and Windows.
         </p>
@@ -53,7 +53,7 @@ export default function AboutPage() {
 
         <h2>Who builds it</h2>
         <p>
-          Mostly one person, plus the CodeCollab team. Oz started as a side
+          Mostly one person, plus the CodeCollab team. cli-ck started as a side
           project because we wanted a faster terminal with AI built in, not
           bolted on. It&apos;s grown from there.
         </p>
@@ -63,7 +63,7 @@ export default function AboutPage() {
             GitHub
           </Link>
           . For anything else you can reach me at{" "}
-          <Link href="mailto:info@oz.app">info@oz.app</Link>.
+          <Link href="mailto:info@cli-ck.app">info@cli-ck.app</Link>.
         </p>
 
         <h2>How it&apos;s built</h2>
@@ -137,9 +137,9 @@ export default function AboutPage() {
             </Link>
           </Button>
           <Button asChild variant="ghost" size="sm" className="rounded-full">
-            <Link href="mailto:info@oz.app">
+            <Link href="mailto:info@cli-ck.app">
               <HugeiconsIcon icon={Mail01Icon} strokeWidth={2} />
-              info@oz.app
+              info@cli-ck.app
             </Link>
           </Button>
         </div>

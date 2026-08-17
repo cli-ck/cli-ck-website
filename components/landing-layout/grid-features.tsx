@@ -34,7 +34,7 @@ const items = [
   },
   {
     icon: Notebook01Icon,
-    title: "OZ.md",
+    title: "cli-ck.md",
     desc: "Per-project memory and config - versioned with your repo.",
   },
   {

@@ -5,7 +5,7 @@ import type { ReactNode } from "react"
 import Image from "next/image"
 import { SITE } from "@/lib/site"
 import { ScrollGuard } from "@/components/docs/scroll-guard"
-import logoImg from "@/public/oz_icon_256.png"
+import logoImg from "@/public/cli_ck_icon_256.png"
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (

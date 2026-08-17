@@ -11,12 +11,13 @@ import { Button } from "@/components/ui/button"
 import { SITE } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import { ThemeToggleControl } from "./theme-toggle-control"
-import logoImg from "@/public/oz_icon_256.png"
+import logoImg from "@/public/cli_ck_icon_256.png"
 
 const navLinks = [
   { href: "/#features", label: "Features" },
   { href: "/about", label: "About" },
   { href: "/changelog", label: "Changelog" },
+  { href: "/docs/reference/shortcuts", label: "Shortcuts" },
   { href: "/#faq", label: "FAQ" },
   { href: "/docs", label: "Docs" },
 ]

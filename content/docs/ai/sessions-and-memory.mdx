@@ -1,14 +1,14 @@
 ---
 title: Sessions and memory
-description: Named, persistent chat sessions, project-level memory via OZ.md, and custom instructions.
+description: Named, persistent chat sessions, project-level memory via cli-ck.md, and custom instructions.
 icon: Notebook
 ---
 
-Chats in Oz are organized into named **sessions** that persist across restarts. Sessions are not a single rolling buffer - each is its own conversation with its own message history.
+Chats in cli-ck are organized into named **sessions** that persist across restarts. Sessions are not a single rolling buffer - each is its own conversation with its own message history.
 
 ## Sessions
 
-The sessions store lives at `oz-ai-sessions.json` in the app data directory:
+The sessions store lives at `cli-ck-ai-sessions.json` in the app data directory:
 
 - A `list` of session ids and titles
 - An `activeId` pointer
@@ -20,9 +20,9 @@ Session titles are derived from the first user message automatically. Rename or 
 
 Switching the API key wipes the in-memory chat map. Sessions on disk persist - they re-bind to whichever key is active when you open them.
 
-## OZ.md - project memory
+## cli-ck.md - project memory
 
-Oz loads `OZ.md` from the workspace root as agent memory, the same way Claude Code reads `CLAUDE.md` or other agents read `AGENTS.md`. It is just a Markdown file you keep in your repo.
+cli-ck loads `cli-ck.md` from the workspace root as agent memory, the same way Claude Code reads `CLAUDE.md` or other agents read `AGENTS.md`. It is just a Markdown file you keep in your repo.
 
 Use it to encode:
 
@@ -32,27 +32,27 @@ Use it to encode:
 - Known gotchas and historical context
 - Per-area pointers ("for the terminal subsystem, see X")
 
-`OZ.md` is loaded once per session, prepended to the agent's working context. It is the most direct way to make the agent useful in your specific codebase.
+`cli-ck.md` is loaded once per session, prepended to the agent's working context. It is the most direct way to make the agent useful in your specific codebase.
 
 You can also use `AGENTS.md` as a single-line redirect:
 
 ```text
-OZ.md
+cli-ck.md
 ```
 
-(The pattern Oz itself uses in its own repo.)
+(The pattern cli-ck itself uses in its own repo.)
 
 ## Custom instructions
 
 Settings -> General -> **Custom instructions** sets a system prompt addendum that applies to every session, regardless of project. Use it for personal preferences ("answer in Russian", "always include test plans") that are not project-specific.
 
-Project rules go in `OZ.md`. Personal rules go in custom instructions.
+Project rules go in `cli-ck.md`. Personal rules go in custom instructions.
 
 ## Snippets, todos
 
 Two other persisted stores live alongside sessions:
 
-- `oz-ai-snippets.json` - the `#handle` snippet library
-- `oz-ai-todos.json` - in-app TODO lists the agent can read and write
+- `cli-ck-ai-snippets.json` - the `#handle` snippet library
+- `cli-ck-ai-todos.json` - in-app TODO lists the agent can read and write
 
 All four (sessions, agents, snippets, todos) live in the same app data directory. See [Data locations](/docs/reference/data).

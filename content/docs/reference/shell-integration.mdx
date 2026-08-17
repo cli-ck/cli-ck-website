@@ -1,18 +1,18 @@
 ---
 title: Shell integration
-description: What Oz injects into your shell, the OSC sequences it watches, and how to opt out.
+description: What cli-ck injects into your shell, the OSC sequences it watches, and how to opt out.
 icon: CommandLine
 ---
 
-Oz injects shell integration scripts automatically on every PTY spawn. You do not need to edit `.zshrc`, `.bashrc`, or `$PROFILE`. In fact, you should not - hand-rolling OSC emitters on top of the bundled ones will double-emit and confuse the cwd / prompt tracking.
+cli-ck injects shell integration scripts automatically on every PTY spawn. You do not need to edit `.zshrc`, `.bashrc`, or `$PROFILE`. In fact, you should not - hand-rolling OSC emitters on top of the bundled ones will double-emit and confuse the cwd / prompt tracking.
 
-## What Oz injects
+## What cli-ck injects
 
 Scripts live in `src-tauri/src/modules/pty/scripts/`.
 
 ### Zsh
 
-`zshenv.zsh`, `zprofile.zsh`, `zlogin.zsh`, `zshrc.zsh` are installed via the `ZDOTDIR` environment variable. Your real `~/.zshrc` is sourced from inside Oz's script, so your config still runs. Oz adds:
+`zshenv.zsh`, `zprofile.zsh`, `zlogin.zsh`, `zshrc.zsh` are installed via the `ZDOTDIR` environment variable. Your real `~/.zshrc` is sourced from inside cli-ck's script, so your config still runs. cli-ck adds:
 
 - `precmd` hook to emit `OSC 7` (cwd)
 - `precmd` / `preexec` hooks to emit `OSC 133 A` / `B` / `C`
@@ -24,7 +24,7 @@ Scripts live in `src-tauri/src/modules/pty/scripts/`.
 
 ### PowerShell
 
-`profile.ps1` is passed via `pwsh -NoLogo -NoExit -ExecutionPolicy Bypass -File <path>`. Your real `$PROFILE` runs first, then Oz wraps the `prompt` function to emit `OSC 7 + OSC 133 A` / `B` / `D`.
+`profile.ps1` is passed via `pwsh -NoLogo -NoExit -ExecutionPolicy Bypass -File <path>`. Your real `$PROFILE` runs first, then cli-ck wraps the `prompt` function to emit `OSC 7 + OSC 133 A` / `B` / `D`.
 
 The cwd is normalized to backslashes before being passed to ConPTY because `CreateProcessW` misbehaves with forward-slash cwd on Windows.
 
@@ -34,7 +34,7 @@ No integration. `cmd.exe` is the last-resort fallback when neither `pwsh` nor `p
 
 ## What the OSC sequences mean
 
-Oz watches three OSC families.
+cli-ck watches three OSC families.
 
 ### OSC 7 - working directory
 
@@ -60,13 +60,13 @@ Used for: cwd tracking, command boundary detection, terminal-agent detection (se
 ### OSC 777 - agent state
 
 ```
-ESC ] 777 ; notify ; Oz ; <event> BEL
+ESC ] 777 ; notify ; cli-ck ; <event> BEL
 ```
 
-A Oz-specific extension. Emitted by terminal agents (Claude Code hooks) to signal state transitions: `started`, `working`, `attention`, `finished`, `exited`. The PTY byte filter (`pty/agent_detect.rs`) self-arms on `OSC 133;C` and reads `OSC 777` payloads to drive the [notification router](/docs/features/notifications).
+A cli-ck-specific extension. Emitted by terminal agents (Claude Code hooks) to signal state transitions: `started`, `working`, `attention`, `finished`, `exited`. The PTY byte filter (`pty/agent_detect.rs`) self-arms on `OSC 133;C` and reads `OSC 777` payloads to drive the [notification router](/docs/features/notifications).
 
 ## Opting out
 
 Right now shell integration is on for every PTY. If you have a strong reason to disable it (a debugging script that conflicts, a custom prompt framework that emits its own OSC 7), open an issue. There is no per-session opt-out switch in Settings today.
 
-If you maintain a prompt framework (Starship, oh-my-zsh, etc.), it should work as-is - Oz's hooks are additive, not destructive.
+If you maintain a prompt framework (Starship, oh-my-zsh, etc.), it should work as-is - cli-ck's hooks are additive, not destructive.

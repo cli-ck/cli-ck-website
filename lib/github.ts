@@ -7,7 +7,7 @@ export async function getRepoStars(): Promise<number | null> {
     const res = await fetch(`https://api.github.com/repos/${REPO_PATH}`, {
       headers: {
         Accept: "application/vnd.github+json",
-        "User-Agent": "oz-website",
+        "User-Agent": "cli-ck-website",
         ...(process.env.GITHUB_TOKEN
           ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
           : {}),

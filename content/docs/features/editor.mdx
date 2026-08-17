@@ -6,7 +6,7 @@ icon: Code
 
 The editor is a full CodeMirror 6 stack mounted as one instance per tab. Like terminals, editor tabs are not unmounted on switch - cursor positions, undo history, and selections persist across the whole session.
 
-<img src="/oz-website/editor.webp" alt="Oz code editor with AI autocomplete and Vim mode" width="1200" />
+<img src="/cli-ck-website/editor.webp" alt="cli-ck code editor with AI autocomplete and Vim mode" width="1200" />
 
 ## Languages
 
@@ -18,7 +18,7 @@ First-class. The `vim` CodeMirror extension - motions, registers, marks, visual 
 
 ## Inline AI autocomplete
 
-Type. After a short pause Oz queries your configured **autocomplete provider** and renders the suggestion inline. Accept with `Tab`, reject by typing anything else.
+Type. After a short pause cli-ck queries your configured **autocomplete provider** and renders the suggestion inline. Accept with `Tab`, reject by typing anything else.
 
 Provider and model are independent of your main chat model. Configure in Settings -> Models. The autocomplete provider can be any cloud provider or a local LM Studio / MLX / Ollama endpoint, since latency matters more than raw quality here.
 
@@ -26,7 +26,7 @@ Disable entirely with the `autocompleteEnabled` toggle.
 
 ## AI edit diffs
 
-When the AI agent proposes a file edit, Oz does not write it directly. It opens an `ai-diff` tab showing the proposed change side by side with the current file. You accept or reject hunk by hunk, then the actual write tool runs against the accepted result.
+When the AI agent proposes a file edit, cli-ck does not write it directly. It opens an `ai-diff` tab showing the proposed change side by side with the current file. You accept or reject hunk by hunk, then the actual write tool runs against the accepted result.
 
 This is the same mechanism whether the change came from the main agent, a sub-agent, or a custom agent.
 
@@ -55,4 +55,4 @@ Pick one in Settings -> Themes. Editor theme picks separately from the app palet
 | New editor tab | `Cmd+E` |
 | Toggle Vim mode | Settings -> General |
 
-CodeMirror's native key bindings handle the rest. Oz registers the editor entries in the shortcuts dialog for discoverability but does not intercept them at the app level.
+CodeMirror's native key bindings handle the rest. cli-ck registers the editor entries in the shortcuts dialog for discoverability but does not intercept them at the app level.

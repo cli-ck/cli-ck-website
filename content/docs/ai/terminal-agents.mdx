@@ -1,10 +1,10 @@
 ---
 title: Coding agents in the terminal
-description: Detect Claude Code in any PTY and route its state into the Oz notification surface.
+description: Detect Claude Code in any PTY and route its state into the cli-ck notification surface.
 icon: CommandLine
 ---
 
-A coding agent running inside a terminal (Claude Code today, Codex later) is treated as a first-class citizen. Oz detects its state transitions and routes them into the same notification surface as the built-in agent.
+A coding agent running inside a terminal (Claude Code today, Codex later) is treated as a first-class citizen. cli-ck detects its state transitions and routes them into the same notification surface as the built-in agent.
 
 ## Detection
 
@@ -24,19 +24,19 @@ When no terminal agent is running, the byte filter is a no-op. Zero cost.
 
 ## Claude Code hooks
 
-Claude Code lost `/dev/tty` access in v2.1.139, so it cannot emit OSC sequences directly from its main process. Instead, Oz installs Claude Code hooks that return an `OSC 777` marker through the `terminalSequence` field of the hook response.
+Claude Code lost `/dev/tty` access in v2.1.139, so it cannot emit OSC sequences directly from its main process. Instead, cli-ck installs Claude Code hooks that return an `OSC 777` marker through the `terminalSequence` field of the hook response.
 
 Install with one click in Settings -> Agents -> **Enable Claude Code hooks**. The command is `agent_enable_claude_hooks`.
 
 ### What gets installed
 
-Three hooks in `~/.claude/settings.json`, gated on `OZ_TERMINAL`:
+Three hooks in `~/.claude/settings.json`, gated on `CLI_CK_TERMINAL`:
 
 - **UserPromptSubmit** -> `working`
 - **Notification** -> `attention`
 - **Stop** -> `finished`
 
-Each hook is a one-line shell command that prints a JSON object with `terminalSequence` set to an `OSC 777;notify;Oz;<event>` sequence. The `OZ_TERMINAL` guard makes the hooks no-ops outside Oz, so they will not interfere when you run Claude Code in another terminal.
+Each hook is a one-line shell command that prints a JSON object with `terminalSequence` set to an `OSC 777;notify;cli-ck;<event>` sequence. The `CLI_CK_TERMINAL` guard makes the hooks no-ops outside cli-ck, so they will not interfere when you run Claude Code in another terminal.
 
 ### Safety
 
@@ -44,7 +44,7 @@ The installer is paranoid:
 
 - Reads the existing `settings.json` and rejects if the file is present but not valid JSON. Never clobbers.
 - Atomic write (temp file plus rename).
-- Migrates older Oz-owned hooks from the pre-v2.1.139 `/dev/tty` variant.
+- Migrates older cli-ck-owned hooks from the pre-v2.1.139 `/dev/tty` variant.
 - Prunes empty hook groups left behind by manual edits.
 - Idempotent - re-running migrates rather than duplicates.
 
@@ -52,4 +52,4 @@ The installer is paranoid:
 
 `agent_claude_hooks_status` checks whether the hooks are currently installed. The Settings toggle reads from this.
 
-To uninstall, flip the toggle off. Oz removes only the hooks it owns (identified by the `notify;Oz;` marker in the command string) and leaves any other hooks in your config untouched.
+To uninstall, flip the toggle off. cli-ck removes only the hooks it owns (identified by the `notify;cli-ck;` marker in the command string) and leaves any other hooks in your config untouched.

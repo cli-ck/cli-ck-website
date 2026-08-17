@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Questions & ideas
-    url: https://github.com/my-oz/oz-website/discussions
+    url: https://github.com/cli-ck/cli-ck-website/discussions
     about: For general questions, website feedback, and documentation ideas, please start a Discussion instead of an issue.
   - name: Security vulnerabilities
-    url: https://github.com/my-oz/oz/blob/main/SECURITY.md
-    about: Do NOT open a public issue for security problems. Please follow the disclosure process in the main Oz repository.
+    url: https://github.com/cli-ck/cli-ck/blob/main/SECURITY.md
+    about: Do NOT open a public issue for security problems. Please follow the disclosure process in the main cli-ck repository.

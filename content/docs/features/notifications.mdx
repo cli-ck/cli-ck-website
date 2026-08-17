@@ -1,12 +1,12 @@
 ---
 title: Notifications
-description: One unified notification surface for the Oz agent and every terminal coding agent.
+description: One unified notification surface for the cli-ck agent and every terminal coding agent.
 icon: Record
 ---
 
-The header carries a notification bell. It is the single place to see what every agent is doing - the built-in Oz agent and any coding agent running inside a terminal tab (Claude Code today, Codex later).
+The header carries a notification bell. It is the single place to see what every agent is doing - the built-in cli-ck agent and any coding agent running inside a terminal tab (Claude Code today, Codex later).
 
-<img src="/oz-website/notifications.webp" alt="Notification bell with agent list" width="360" />
+<img src="/cli-ck-website/notifications.webp" alt="Notification bell with agent list" width="360" />
 
 ## The router
 
@@ -18,7 +18,7 @@ Every agent state transition runs through one router in `lib/route.ts`. It decid
 
 This keeps the bell quiet when you do not need it and loud when you do.
 
-## The Oz agent
+## The cli-ck agent
 
 The built-in agent is wired through `LocalAgentNotificationsBridge`. It maps `chatStore.agentMeta` states into the same router:
 
@@ -30,7 +30,7 @@ So you get the same toast / OS notification flow whether the AI is in the side-p
 
 ## Terminal agents
 
-For coding agents that run as CLIs inside a PTY (Claude Code), detection is Rust-side on the PTY reader's byte filter. It arms on `OSC 133;C;<cmd>` and emits `oz:agent-signal` events with one of:
+For coding agents that run as CLIs inside a PTY (Claude Code), detection is Rust-side on the PTY reader's byte filter. It arms on `OSC 133;C;<cmd>` and emits `cli-ck:agent-signal` events with one of:
 
 - `started`
 - `working`

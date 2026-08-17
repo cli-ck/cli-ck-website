@@ -1,54 +1,65 @@
 ---
 title: Keyboard shortcuts
-description: The default key map. Every binding here is remappable in Settings - Shortcuts.
+description: Every default binding in cli-ck. Remap any of them in Settings → Shortcuts.
 icon: Keyboard
 ---
 
-Every default binding below is registered in `src/modules/shortcuts/shortcuts.ts` and remappable from **Settings -> Shortcuts**.
+Source of truth is `src/features/layout-chrome/shortcuts/shortcuts.ts` in the cli-ck app. Remap from **Settings → Shortcuts**.
 
-<img src="/oz-website/settings_shortcuts.webp" alt="Settings Shortcuts" width="1200" />
+<img src="/cli-ck-website/settings_shortcuts.webp" alt="Settings Shortcuts" width="1200" />
 
-`Mod` is `Cmd` on macOS, `Ctrl` on Linux and Windows. `Ctrl+Tab` and `Ctrl+Shift+Tab` use `Ctrl` on every platform.
+`Mod` is `⌘` on macOS and `Ctrl` on Windows and Linux. `Ctrl+Tab` / `Ctrl+Shift+Tab` always use `Ctrl`, including on Mac.
 
 ## General
 
 | Action | Default |
 | --- | --- |
+| Open command palette | `Mod+P` |
+| Find in files | `Mod+Shift+P` |
 | Open settings | `Mod+,` |
-| Show keyboard shortcuts | `Mod+K` |
 
 ## Tabs
 
 | Action | Default |
 | --- | --- |
 | New terminal tab | `Mod+T` |
+| New Blocks terminal | `Mod+Shift+T` |
 | New private terminal | `Mod+R` |
-| New preview tab | `Mod+P` |
+| New web preview | `Mod+Shift+O` |
 | New editor tab | `Mod+E` |
 | Close tab or pane | `Mod+W` |
 | Next tab | `Ctrl+Tab` |
 | Previous tab | `Ctrl+Shift+Tab` |
-| Jump to tab 1 - 9 | `Mod+1` ... `Mod+9` |
+| Jump to tab 1–9 | `Mod+1` … `Mod+9` |
 
-## Panes
+## Spaces
 
 | Action | Default |
 | --- | --- |
-| Split pane right | `Mod+D` |
+| Next space | `Mod+Shift+]` |
+| Previous space | `Mod+Shift+[` |
+| Open spaces | `Mod+Shift+S` |
+
+## Panes
+
+Split panes are independent PTY sessions in the same tab. Works on a normal shell tab, not a Blocks terminal. Cap is 4 panes per tab.
+
+| Action | Default |
+| --- | --- |
+| Split pane right (side-by-side) | `Mod+D` |
 | Split pane down | `Mod+Shift+D` |
 | Focus next pane | `Mod+]` |
 | Focus previous pane | `Mod+[` |
 | Toggle source panel | `Mod+G` |
 
-## View
+## Terminal
 
-| Action | Default |
-| --- | --- |
-| Toggle file explorer | `Mod+B` |
-| Toggle file explorer focus | `Mod+Shift+E` |
-| Zoom in | `Mod+=` / `Mod+Shift++` |
-| Zoom out | `Mod+-` / `Mod+Shift+_` |
-| Reset zoom | `Mod+0` |
+| Action | Default | Notes |
+| --- | --- | --- |
+| Clear terminal | `⌘K` | macOS only by default. Unbound on Windows/Linux so `Ctrl+K` stays readline kill-line. |
+| Toggle Shell / AI input | `Mod+U` | Blocks terminal only |
+| Previous command block | `Mod+↑` | Blocks terminal only |
+| Next command block | `Mod+↓` | Blocks terminal only |
 
 ## Search
 
@@ -62,11 +73,22 @@ Every default binding below is registered in `src/modules/shortcuts/shortcuts.ts
 | Action | Default |
 | --- | --- |
 | Toggle AI agent | `Mod+I` |
-| Ask AI about selection | `Mod+L` |
+| Ask AI about selection | `Mod+J` |
+
+## View
+
+| Action | Default | Notes |
+| --- | --- | --- |
+| Toggle file explorer | `Mod+B` / `Mod+Shift+B` | Plain `Mod+B` is skipped while a terminal is focused (Claude Code uses it). `Mod+Shift+B` always toggles. |
+| Toggle file explorer focus | `Mod+Shift+E` |
+| Zoom in | `Mod+=` / `Mod+Shift++` |
+| Zoom out | `Mod+-` / `Mod+Shift+_` |
+| Reset zoom | `Mod+0` |
+| Toggle zen mode | `Mod+Shift+Z` |
 
 ## Editor
 
-These are display-only entries. CodeMirror's `historyKeymap` owns them natively - Oz registers them in the shortcuts dialog for discoverability but does not intercept at the app level.
+Display-only. CodeMirror's `historyKeymap` owns these. cli-ck lists them in Settings but does not intercept them.
 
 | Action | Default |
 | --- | --- |

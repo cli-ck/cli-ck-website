@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-The marketing/docs website for **Oz** ([oz.app](https://oz.app)), a terminal-first AI-native dev workspace. The product itself lives in a separate repo (`my-oz/oz`); this repo is only the landing page + docs site. It's statically exported and deployed to GitHub Pages under the `/oz-website` subpath — there is no backend, no server runtime, no database.
+The marketing/docs website for **cli-ck** ([cli-ck.app](https://cli-ck.github.io/cli-ck-website)), a terminal-first AI-native dev workspace. The product itself lives in a separate repo (`my-cli-ck/cli-ck`); this repo is only the landing page + docs site. It's statically exported and deployed to GitHub Pages under the `/cli-ck-website` subpath — there is no backend, no server runtime, no database.
 
 ## Commands
 
@@ -24,7 +24,7 @@ An optional `GITHUB_TOKEN` env var (read-only, public-repo scope) raises the Git
 
 ## Architecture
 
-**Static export, subpath-hosted.** `next.config.mjs` sets `output: 'export'`, `trailingSlash: true`, and `basePath: '/oz-website'` (deployed at `my-oz.github.io/oz-website`, not a custom domain root). Any hardcoded internal link, asset path, or image `src` must be prefixed with the basePath (see the icon URLs in `app/layout.tsx` for the pattern: `/oz-website/favicon.ico`). Images are `unoptimized: true` since there's no image-optimization server in a static export. Deploy is `.github/workflows/deploy.yml`: on push to `main`, it runs `pnpm build` and publishes `out/` to GitHub Pages.
+**Static export, subpath-hosted.** `next.config.mjs` sets `output: 'export'`, `trailingSlash: true`, and `basePath: '/cli-ck-website'` (deployed at `cli-ck.github.io/cli-ck-website`, not a custom domain root). Any hardcoded internal link, asset path, or image `src` must be prefixed with the basePath (see the icon URLs in `app/layout.tsx` for the pattern: `/cli-ck-website/favicon.ico`). Images are `unoptimized: true` since there's no image-optimization server in a static export. Deploy is `.github/workflows/deploy.yml`: on push to `main`, it runs `pnpm build` and publishes `out/` to GitHub Pages.
 
 **Single source of truth for site content:** `lib/site.ts` holds the `SITE` object (name, taglines, all external URLs, version) and the `DOWNLOADS` map (per-platform release artifact filenames/URLs, derived from `VERSION`). Bumping the app version or changing a download link happens here, not in components. `lib/changelog.ts` holds changelog entries. `lib/github.ts` fetches the live star count from the GitHub API (cached via `next: { revalidate: 3600 }`).
 

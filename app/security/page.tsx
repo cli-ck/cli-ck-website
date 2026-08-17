@@ -19,7 +19,7 @@ export default function SecurityPage() {
       <PageHero
         eyebrow="Security"
         title="Security"
-        lead="Oz runs shells, reads and writes files, and talks to AI providers. If you find a security issue, please tell us before posting it publicly."
+        lead="cli-ck runs shells, reads and writes files, and talks to AI providers. If you find a security issue, please tell us before posting it publicly."
         meta={
           <>
             <span>Latest · v{VERSION}</span>
@@ -31,9 +31,9 @@ export default function SecurityPage() {
 
       <div className="mx-auto mb-10 flex max-w-3xl items-center justify-center px-4 sm:px-6">
         <Button asChild size="sm" className="rounded-full">
-          <Link href="mailto:security@oz.app">
+          <Link href="mailto:security@cli-ck.app">
             <HugeiconsIcon icon={Mail01Icon} strokeWidth={2} />
-            security@oz.app
+            security@cli-ck.app
           </Link>
         </Button>
       </div>
@@ -41,7 +41,7 @@ export default function SecurityPage() {
       <Prose>
         <h2>Reporting</h2>
         <p>
-          Email <Link href="mailto:security@oz.app">security@oz.app</Link>
+          Email <Link href="mailto:security@cli-ck.app">security@cli-ck.app</Link>
           . Include:
         </p>
         <ul>
@@ -87,7 +87,7 @@ export default function SecurityPage() {
             terminal output, file content, AI tool results, credentials.
           </li>
           <li>
-            Release artifacts on GitHub and <code>oz.app</code>.
+            Release artifacts on GitHub and <code>cli-ck.app</code>.
           </li>
           <li>The auto-updater.</li>
         </ul>
@@ -116,7 +116,7 @@ export default function SecurityPage() {
             , not in logs.
           </li>
           <li>
-            <strong>No telemetry.</strong> Oz only talks to the network when
+            <strong>No telemetry.</strong> cli-ck only talks to the network when
             you ask it to (AI requests, update checks, web preview).
           </li>
           <li>
@@ -136,7 +136,7 @@ export default function SecurityPage() {
         <h2>What we can&apos;t promise</h2>
         <ul>
           <li>
-            Oz runs whatever you (or the agent) tell it to run, with your
+            cli-ck runs whatever you (or the agent) tell it to run, with your
             permissions. That&apos;s the point of a terminal.
           </li>
           <li>
@@ -145,7 +145,7 @@ export default function SecurityPage() {
           </li>
           <li>
             Local LLM endpoints (LM Studio, OpenAI-compatible) are trusted at
-            the network level - only point Oz at servers you control.
+            the network level - only point cli-ck at servers you control.
           </li>
         </ul>
       </Prose>
@@ -160,10 +160,10 @@ export default function SecurityPage() {
           <span>
             PGP key on request. Email{" "}
             <Link
-              href="mailto:security@oz.app"
+              href="mailto:security@cli-ck.app"
               className="text-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:decoration-foreground"
             >
-              security@oz.app
+              security@cli-ck.app
             </Link>
             .
           </span>

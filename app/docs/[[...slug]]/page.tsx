@@ -23,11 +23,11 @@ export default async function Page(props: {
 
   const slugs = params.slug ?? []
   const slugPath = slugs.join("/")
-  const gitUrl = `https://github.com/my-oz/oz-website/blob/main/content/docs/${page.path}`
+  const gitUrl = `https://github.com/cli-ck/cli-ck-website/blob/main/content/docs/${page.path}`
   const rawMarkdownUrl = `/docs/${slugPath ? slugPath + ".md" : "index.md"}`
-  const sciraUrl = `https://scira.app/?q=https://oz.app/docs/${slugPath ? slugPath + ".md" : "index.md"}`
-  const chatgptUrl = `https://chatgpt.com/?q=Read+this+page:+https://oz.app/docs/${slugPath ? slugPath + ".md" : "index.md"}`
-  const claudeUrl = `https://claude.ai/new?q=https://oz.app/docs/${slugPath ? slugPath + ".md" : "index.md"}`
+  const sciraUrl = `https://scira.app/?q=https://cli-ck.github.io/cli-ck-website/docs/${slugPath ? slugPath + ".md" : "index.md"}`
+  const chatgptUrl = `https://chatgpt.com/?q=Read+this+page:+https://cli-ck.github.io/cli-ck-website/docs/${slugPath ? slugPath + ".md" : "index.md"}`
+  const claudeUrl = `https://claude.ai/new?q=https://cli-ck.github.io/cli-ck-website/docs/${slugPath ? slugPath + ".md" : "index.md"}`
   const cursorUrl = "https://cursor.com"
 
   return (

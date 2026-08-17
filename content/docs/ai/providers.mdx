@@ -4,7 +4,7 @@ description: Cloud providers, local model endpoints, and how API keys are stored
 icon: Cpu
 ---
 
-Oz is BYOK. No usage premium, no proxy, no lock-in. Cloud calls go directly from your machine to the provider through an SSRF-guarded Rust HTTP proxy (`ai_http_request`, `ai_http_stream`).
+cli-ck is BYOK. No usage premium, no proxy, no lock-in. Cloud calls go directly from your machine to the provider through an SSRF-guarded Rust HTTP proxy (`ai_http_request`, `ai_http_stream`).
 
 ## Cloud providers
 
@@ -23,7 +23,7 @@ Built on the Vercel AI SDK v6 (`@ai-sdk/*`):
 
 Each provider has its own card in **Settings -> Models**. Paste a key, pick a model, done.
 
-<img src="/oz-website/settings_models.webp" alt="Settings Models tab" width="1200" />
+<img src="/cli-ck-website/settings_models.webp" alt="Settings Models tab" width="1200" />
 
 ## Local and offline
 
@@ -39,7 +39,7 @@ Override the base URL per provider in Settings. A reachability indicator (`lm_pi
 
 The composer's model picker shows your active provider's model registry, plus favorites and recents you can pin.
 
-<img src="/oz-website/model_selector.webp" alt="Model picker" width="900" />
+<img src="/cli-ck-website/model_selector.webp" alt="Model picker" width="900" />
 
 The default model id (`DEFAULT_MODEL_ID`) and the default autocomplete model (`DEFAULT_AUTOCOMPLETE_MODEL`) are settable in Settings -> Models.
 
@@ -47,8 +47,8 @@ The default model id (`DEFAULT_MODEL_ID`) and the default autocomplete model (`D
 
 Keys go to the OS keychain via the `keyring` Rust crate:
 
-- **macOS** - Keychain (service: `oz-ai`)
-- **Windows** - Credential Manager (target: `oz-ai`)
+- **macOS** - Keychain (service: `cli-ck-ai`)
+- **Windows** - Credential Manager (target: `cli-ck-ai`)
 - **Linux** - Secret Service (libsecret) where available, with a file-based fallback for headless systems
 
 Keys never touch the settings file, `localStorage`, or env vars. The frontend reads and writes them through the `secrets_*` Tauri commands.

@@ -4,7 +4,7 @@ description: Approval-gated tools, the secret deny-list, AI edit diffs, and the 
 icon: Shield
 ---
 
-Oz assumes the AI can be wrong. Every action that touches your disk, your shell, or your secrets has an explicit boundary in front of it.
+cli-ck assumes the AI can be wrong. Every action that touches your disk, your shell, or your secrets has an explicit boundary in front of it.
 
 ## Approval-gated tools
 
@@ -27,7 +27,7 @@ AI tools split into two tiers.
 - `shell_session_run` - persistent agent shell
 - `shell_bg_spawn` - long-running background process
 
-When the agent calls an approval-gated tool, the AI SDK pauses the step and Oz renders an in-UI confirmation card showing the exact arguments. You accept or reject. Auto-resume on accept is handled by `lastAssistantMessageIsCompleteWithApprovalResponses`.
+When the agent calls an approval-gated tool, the AI SDK pauses the step and cli-ck renders an in-UI confirmation card showing the exact arguments. You accept or reject. Auto-resume on accept is handled by `lastAssistantMessageIsCompleteWithApprovalResponses`.
 
 ## AI edit diffs
 
@@ -60,4 +60,4 @@ The Rust HTTP proxy (`ai_http_request`, `ai_http_stream`) blocks loopback, link-
 
 ## Keys never on disk
 
-API keys live in the OS keychain (service `oz-ai`). The settings file, `localStorage`, and env vars never see a plaintext key. See [Providers and keys](/docs/ai/providers#key-storage).
+API keys live in the OS keychain (service `cli-ck-ai`). The settings file, `localStorage`, and env vars never see a plaintext key. See [Providers and keys](/docs/ai/providers#key-storage).

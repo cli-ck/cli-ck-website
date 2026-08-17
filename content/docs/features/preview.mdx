@@ -4,9 +4,9 @@ description: Auto-detect localhost dev servers and external URLs in a preview ta
 icon: Browser
 ---
 
-Oz watches PTY output for localhost URLs (`http://localhost:3000`, `127.0.0.1`, Vite, Next, etc.) and surfaces them as a status-bar pill suggesting **Open in preview**.
+cli-ck watches PTY output for localhost URLs (`http://localhost:3000`, `127.0.0.1`, Vite, Next, etc.) and surfaces them as a status-bar pill suggesting **Open in preview**.
 
-<img src="/oz-website/web_preview.webp" alt="Oz web preview tab next to the editor" width="1200" />
+<img src="/cli-ck-website/web_preview.webp" alt="cli-ck web preview tab next to the editor" width="1200" />
 
 Click the pill to open a `preview` tab. Like every other tab kind, the preview is kept mounted in the background so the page state survives tab switches.
 
@@ -14,7 +14,7 @@ Click the pill to open a `preview` tab. Like every other tab kind, the preview i
 
 `Cmd+P` creates a new preview tab. Type or paste any URL.
 
-For external URLs Oz renders them in a native child webview rather than an iframe, so cross-origin headers and cookie scopes behave like a regular browser navigation.
+For external URLs cli-ck renders them in a native child webview rather than an iframe, so cross-origin headers and cookie scopes behave like a regular browser navigation.
 
 ## Hot reload
 

@@ -1,53 +1,53 @@
 ---
 title: Data locations
-description: Where Oz stores settings, sessions, themes, snippets, and keys on each platform.
+description: Where cli-ck stores settings, sessions, themes, snippets, and keys on each platform.
 icon: Config
 ---
 
-Oz stores its state in one app data directory plus the OS keychain. The settings UI is the source of truth - hand-editing these files is supported but not the workflow.
+cli-ck stores its state in one app data directory plus the OS keychain. The settings UI is the source of truth - hand-editing these files is supported but not the workflow.
 
 ## App data directory
 
 | Platform | Path |
 | --- | --- |
-| macOS | `~/Library/Application Support/app.codecollab-co.oz/` |
-| Linux | `~/.local/share/app.codecollab-co.oz/` |
-| Windows | `%APPDATA%\app.codecollab-co.oz\` |
+| macOS | `~/Library/Application Support/app.cli-ck.cli-ck/` |
+| Linux | `~/.local/share/app.cli-ck.cli-ck/` |
+| Windows | `%APPDATA%\app.cli-ck.cli-ck\` |
 
-The bundle id is `app.codecollab-co.oz`. Resolved by the Rust `dirs` crate, never by raw `$HOME` / `%APPDATA%` reads.
+The bundle id is `app.cli-ck.cli-ck`. Resolved by the Rust `dirs` crate, never by raw `$HOME` / `%APPDATA%` reads.
 
 ## Files
 
 | File | Contents |
 | --- | --- |
-| `oz-settings.json` | App preferences - themes, fonts, shortcuts, autocomplete, agent toggles, WSL distro, etc. |
-| `oz-ai-sessions.json` | Chat session list, active id, and per-session message histories |
-| `oz-ai-agents.json` | Custom agents - system prompts and tool subsets |
-| `oz-ai-snippets.json` | Composer `#handle` snippets |
-| `oz-ai-todos.json` | In-app TODO lists the agent can read and write |
-| `oz-custom-themes.json` | User-built themes |
+| `cli-ck-settings.json` | App preferences - themes, fonts, shortcuts, autocomplete, agent toggles, WSL distro, etc. |
+| `cli-ck-ai-sessions.json` | Chat session list, active id, and per-session message histories |
+| `cli-ck-ai-agents.json` | Custom agents - system prompts and tool subsets |
+| `cli-ck-ai-snippets.json` | Composer `#handle` snippets |
+| `cli-ck-ai-todos.json` | In-app TODO lists the agent can read and write |
+| `cli-ck-custom-themes.json` | User-built themes |
 | `themes/` | Background images and any per-theme assets |
 
 All seven are managed through `tauri-plugin-store`. Atomic writes, schema migrations on launch.
 
-You can back up or sync this directory across machines if you want. Just close Oz first.
+You can back up or sync this directory across machines if you want. Just close cli-ck first.
 
 ## Keychain
 
 API keys never live in the files above. They go to the OS keychain:
 
-- **macOS** - Keychain, service `oz-ai`
-- **Windows** - Credential Manager, target `oz-ai`
+- **macOS** - Keychain, service `cli-ck-ai`
+- **Windows** - Credential Manager, target `cli-ck-ai`
 - **Linux** - Secret Service (libsecret) where available; file-based fallback gated behind `#[cfg(target_os = "linux")]` for headless environments
 
-Wipe all keys at once by deleting the `oz-ai` service entries in your OS keychain. The settings file is unaffected.
+Wipe all keys at once by deleting the `cli-ck-ai` service entries in your OS keychain. The settings file is unaffected.
 
 ## Cache
 
-Oz does not maintain a separate disk cache today. Webview cache is managed by Tauri's WebView2 (Windows) / WKWebView (macOS) / webkit2gtk (Linux) and lives in the platform-default location for those engines.
+cli-ck does not maintain a separate disk cache today. Webview cache is managed by Tauri's WebView2 (Windows) / WKWebView (macOS) / webkit2gtk (Linux) and lives in the platform-default location for those engines.
 
 ## Editing files directly
 
-You can edit any file in the app data directory while Oz is closed. On next launch the store will validate, migrate if needed, and surface errors in the About tab.
+You can edit any file in the app data directory while cli-ck is closed. On next launch the store will validate, migrate if needed, and surface errors in the About tab.
 
 The settings UI is still the right way to change preferences - it knows the schema, validates inputs, and triggers the right re-renders (theme swaps, font changes, shortcut rebinds). Editing JSON by hand is for backups and bulk migrations, not daily use.

@@ -4,13 +4,13 @@ description: Native PTY backend, WebGL-rendered xterm.js, multi-tab with split p
 icon: Terminal
 ---
 
-The terminal is the centerpiece of Oz. It is a real PTY, not a wrapped subprocess. Tabs survive in the background, split panes are first-class, and shell integration is injected automatically so the host always knows your cwd and command boundaries.
+The terminal is the centerpiece of cli-ck. It is a real PTY, not a wrapped subprocess. Tabs survive in the background, split panes are first-class, and shell integration is injected automatically so the host always knows your cwd and command boundaries.
 
-<img src="/oz-website/terminal.webp" alt="Oz terminal with multi-tab and file explorer" width="1200" />
+<img src="/cli-ck-website/terminal.webp" alt="cli-ck terminal with multi-tab and file explorer" width="1200" />
 
 ## How it works
 
-Oz runs a two-process model. The Rust backend (`src-tauri`) owns every PTY through the `portable-pty` crate. The frontend never touches processes directly. PTY output streams from Rust into the React app over a Tauri `Channel<PtyEvent>` and lands in xterm.js, which renders to a WebGL canvas.
+cli-ck runs a two-process model. The Rust backend (`src-tauri`) owns every PTY through the `portable-pty` crate. The frontend never touches processes directly. PTY output streams from Rust into the React app over a Tauri `Channel<PtyEvent>` and lands in xterm.js, which renders to a WebGL canvas.
 
 Each terminal lives in its own `xterm.Terminal` instance that is created once and kept mounted for the life of the tab. Switching tabs hides the canvas, it does not tear down the session.
 
@@ -38,17 +38,17 @@ Panes are independent PTY sessions inside the same tab. Resizable, individually 
 
 ## Shells
 
-Default shell on Unix follows `$SHELL`. On Windows, Oz probes for `pwsh.exe`, then `powershell.exe`, then `cmd.exe`. PowerShell 7+ is preferred because the bundled init script (`profile.ps1`) wraps the prompt function to emit shell integration markers.
+Default shell on Unix follows `$SHELL`. On Windows, cli-ck probes for `pwsh.exe`, then `powershell.exe`, then `cmd.exe`. PowerShell 7+ is preferred because the bundled init script (`profile.ps1`) wraps the prompt function to emit shell integration markers.
 
 Supported out of the box: zsh, bash, pwsh, PowerShell 5.1, cmd, fish.
 
-See [Shell integration](/docs/reference/shell-integration) for what Oz injects and what escape sequences it watches.
+See [Shell integration](/docs/reference/shell-integration) for what cli-ck injects and what escape sequences it watches.
 
 ## Process lifecycle
 
 Closing a terminal tab kills the immediate shell child via `portable-pty`'s killer.
 
-On Windows there is an extra layer. Each PTY session is also assigned to a per-session **Job Object** with `JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`. When the Job HANDLE drops - clean shutdown, panic, or even a SIGKILL on the Oz process - the kernel terminates every descendant of the shell. So if you started `npm run dev` inside pwsh and the Oz process dies, the dev server dies with it. Windows orphans the entire subtree otherwise.
+On Windows there is an extra layer. Each PTY session is also assigned to a per-session **Job Object** with `JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`. When the Job HANDLE drops - clean shutdown, panic, or even a SIGKILL on the cli-ck process - the kernel terminates every descendant of the shell. So if you started `npm run dev` inside pwsh and the cli-ck process dies, the dev server dies with it. Windows orphans the entire subtree otherwise.
 
 ConPTY on Windows is also serialized behind a spawn mutex (`SPAWN_LOCK`) because concurrent spawns can leave a PTY with a stalled output pipe.
 

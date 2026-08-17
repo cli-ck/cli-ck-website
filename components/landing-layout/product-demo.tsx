@@ -47,7 +47,7 @@ export function ProductDemo() {
             <span>ProductDemo</span>
           </div>
           <h2 className="mt-5 text-3xl font-semibold tracking-[-0.03em] text-balance sm:text-4xl lg:text-5xl">
-            See Oz in action.
+            See cli-ck in action.
           </h2>
           <p className="mt-4 max-w-xl text-base text-muted-foreground sm:text-[17px]">
             Terminal, editor, AI agents, and web preview - in one pane.
@@ -72,14 +72,14 @@ export function ProductDemo() {
               <span className="size-2.5 rounded-full bg-zinc-700/90 ring-1 ring-white/5 ring-inset" />
               <span className="size-2.5 rounded-full bg-zinc-700/90 ring-1 ring-white/5 ring-inset" />
               <span className="ml-3 truncate font-mono text-[11px] tracking-wide text-zinc-500">
-                oz · demo
+                cli-ck · demo
               </span>
             </div>
             <div className="relative aspect-video w-full bg-zinc-950">
               {active ? (
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&rel=0&modestbranding=1`}
-                  title="Oz demo"
+                  title="cli-ck demo"
                   loading="lazy"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -99,7 +99,7 @@ export function ProductDemo() {
                 >
                   <Image
                     src={`https://i.ytimg.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
-                    alt="Oz demo"
+                    alt="cli-ck demo"
                     fill
                     sizes="(min-width: 1280px) 1100px, (min-width: 1024px) 900px, 100vw"
                     quality={75}
@@ -110,7 +110,7 @@ export function ProductDemo() {
                     className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/55"
                   />
 
-                  {/* Liquid-glass play button - positioned lower so it doesn't sit on top of the Oz logo at the poster center */}
+                  {/* Liquid-glass play button - positioned lower so it doesn't sit on top of the cli-ck logo at the poster center */}
                   <motion.span
                     aria-hidden
                     variants={{ hover: { scale: 1.05, y: -2 } }}

@@ -95,10 +95,10 @@ export default function HomePage() {
             ]}
             image={{
               src: terminalImg,
-              alt: "Oz terminal showing fastfetch output and the file explorer",
+              alt: "cli-ck terminal showing fastfetch output and the file explorer",
               width: 2560,
               height: 1600,
-              caption: "~/projects/oz  ·  fastfetch",
+              caption: "~/projects/cli-ck  ·  fastfetch",
             }}
             priority
           />
@@ -123,7 +123,7 @@ export default function HomePage() {
             ]}
             image={{
               src: editorImg,
-              alt: "Oz code editor with AI autocomplete and Vim mode",
+              alt: "cli-ck code editor with AI autocomplete and Vim mode",
               width: 2560,
               height: 1600,
               caption: "src/modules/lib.rs",
@@ -157,7 +157,7 @@ export default function HomePage() {
             ]}
             image={{
               src: sourceControlImg,
-              alt: "Oz source control panel with diff and commit graph",
+              alt: "cli-ck source control panel with diff and commit graph",
               width: 2560,
               height: 1600,
               caption: "source control · git history",
@@ -177,7 +177,7 @@ export default function HomePage() {
               },
               {
                 icon: Notebook01Icon,
-                label: "OZ.md memory + per-project configs in your repo",
+                label: "cli-ck.md memory + per-project configs in your repo",
               },
               {
                 icon: CodeFolderIcon,
@@ -191,7 +191,7 @@ export default function HomePage() {
             ]}
             image={{
               src: aiWorkflowImg,
-              alt: "Oz AI panel showing an agent listing dirs and proposing edit diffs",
+              alt: "cli-ck AI panel showing an agent listing dirs and proposing edit diffs",
               width: 2560,
               height: 1600,
               caption: "AI agents · edit diff",
@@ -224,7 +224,7 @@ export default function HomePage() {
             ]}
             image={{
               src: webPreviewImg,
-              alt: "Oz web preview showing a Vite app rendered in a side panel",
+              alt: "cli-ck web preview showing a Vite app rendered in a side panel",
               width: 2560,
               height: 1600,
               caption: "preview · http://localhost:5173",
@@ -241,7 +241,7 @@ export default function HomePage() {
             bullets={[
               {
                 icon: PaintBrush02Icon,
-                label: "Bundled: oz-default, nord, tokyo-night, catppuccin, gruvbox, rose-pine, sage, caffeine, claude, tide",
+                label: "Bundled: cli-ck-default, nord, tokyo-night, catppuccin, gruvbox, rose-pine, sage, caffeine, claude, tide",
               },
               {
                 icon: Image01Icon,
@@ -258,7 +258,7 @@ export default function HomePage() {
             ]}
             image={{
               src: themesImg,
-              alt: "Oz theme picker showing bundled themes and a custom background image",
+              alt: "cli-ck theme picker showing bundled themes and a custom background image",
               width: 2560,
               height: 1600,
               caption: "settings · themes",

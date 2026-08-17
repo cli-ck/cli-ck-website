@@ -1,8 +1,8 @@
 <div align="center">
-  <img src="public/oz_icon_256.png" width="120" height="120" alt="Oz" />
-  <h1>Oz Website</h1>
+  <img src="public/cli_ck_icon_256.png" width="120" height="120" alt="cli-ck" />
+  <h1>cli-ck Website</h1>
 
-  <p><strong>The website and landing page for <a href="https://github.com/my-oz/oz">Oz</a>.</strong></p>
+  <p><strong>The website and landing page for <a href="https://github.com/cli-ck/cli-ck">cli-ck</a>.</strong></p>
 
   <p>
     <img src="https://img.shields.io/badge/license-Apache--2.0-green" alt="license" />
@@ -10,18 +10,18 @@
     <img src="https://img.shields.io/badge/React-19-149eca" alt="react" />
   </p>
 
-  <p><a href="https://oz.app">oz.app</a></p>
+  <p><a href="https://cli-ck.github.io/cli-ck-website">cli-ck.app</a></p>
 </div>
 
 ---
 
 <p align="center">
-  <img src="oz-website-demo.png" alt="Oz website" width="820" />
+  <img src="cli-ck-website-demo.png" alt="cli-ck website" width="820" />
 </p>
 
-The source for [oz.app](https://oz.app), the landing page for **Oz**, a lightweight terminal-first AI-native dev workspace. Open-sourced because people kept asking how the animated background and the overall design were built, so here it is, end to end.
+The source for [cli-ck.app](https://cli-ck.github.io/cli-ck-website), the landing page for **cli-ck**, a lightweight terminal-first AI-native dev workspace. Open-sourced because people kept asking how the animated background and the overall design were built, so here it is, end to end.
 
-The product itself lives in a separate repo: **[my-oz/oz](https://github.com/my-oz/oz)**.
+The product itself lives in a separate repo: **[my-cli-ck/cli-ck](https://github.com/cli-ck/cli-ck)**.
 
 ## The animated background
 
@@ -83,4 +83,4 @@ Want to change a download link or bump the shown version? It all lives in [`lib/
 
 ## License
 
-Licensed under the [Apache-2.0 License](LICENSE), same as Oz itself.
+Licensed under the [Apache-2.0 License](LICENSE), same as cli-ck itself.

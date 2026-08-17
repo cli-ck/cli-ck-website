@@ -4,11 +4,12 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { SITE, VERSION } from "@/lib/site"
-import logoImg from "@/public/oz_icon_256.png"
+import logoImg from "@/public/cli_ck_icon_256.png"
 
 const productLinks = [
   { label: "Downloads", href: "#download" },
   { label: "Features", href: "#features" },
+  { label: "Shortcuts", href: "/docs/reference/shortcuts" },
   { label: "Changelog", href: "/changelog" },
   { label: "About", href: "/about" },
 ]
@@ -73,7 +74,7 @@ export function GlobalFooter() {
                 className="size-3.5"
                 strokeWidth={2}
               />
-              my-oz/oz
+              my-cli-ck/cli-ck
             </Link>
           </div>
         </div>

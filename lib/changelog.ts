@@ -67,17 +67,17 @@ export const CHANGELOG: ChangelogEntry[] = [
       {
         kind: "Added",
         items: [
-          "`oz install` and `oz uninstall` subcommands.",
+          "`cli-ck install` and `cli-ck uninstall` subcommands.",
           "README guidance for installing unsigned test builds across all three platforms.",
         ],
       },
       {
         kind: "Fixed",
         items: [
-          "npm launcher (`@codecollab.co/oz`) now installs Oz where the OS expects it: `/Applications` (macOS), a Start Menu shortcut (Windows), and a `.desktop` entry (Linux), so Oz appears as a normally installed app.",
-          'macOS: strip the `com.apple.quarantine` flag and repair the ad-hoc signature on install, resolving the "Oz is damaged" Gatekeeper error on Apple Silicon.',
+          "npm launcher (`@codecollab.co/cli-ck`) now installs cli-ck where the OS expects it: `/Applications` (macOS), a Start Menu shortcut (Windows), and a `.desktop` entry (Linux), so cli-ck appears as a normally installed app.",
+          'macOS: strip the `com.apple.quarantine` flag and repair the ad-hoc signature on install, resolving the "cli-ck is damaged" Gatekeeper error on Apple Silicon.',
           "Windows: clear the mark-of-the-web (`Unblock-File`) to avoid SmartScreen prompts.",
-          "Launcher now starts Oz detached via `open` / spawn, freeing the terminal instead of holding it open until quit.",
+          "Launcher now starts cli-ck detached via `open` / spawn, freeing the terminal instead of holding it open until quit.",
         ],
       },
     ],
@@ -105,7 +105,7 @@ export const CHANGELOG: ChangelogEntry[] = [
           "Official Nix/NixOS support with an auto-update workflow.",
           "Agent notifications and management - one bell, one router for the built-in agent and every terminal coding agent.",
           "Live filesystem watcher for the explorer tree and open editors.",
-          "/claude-code slash command to orchestrate agents via Oz AI.",
+          "/claude-code slash command to orchestrate agents via cli-ck AI.",
         ],
       },
       {
@@ -149,7 +149,7 @@ export const CHANGELOG: ChangelogEntry[] = [
           "Full ANSI terminal palette in the theme model.",
           "MLX and Ollama as local AI providers, with autocomplete via local models.",
           "Source control panel with hunk staging, commit, and a real commit graph.",
-          "Open in Oz shell integration on Windows.",
+          "Open in cli-ck shell integration on Windows.",
           "Mistral AI provider.",
           "Ruby syntax highlighting in the editor.",
           "Markdown preview tab via explorer right-click.",
@@ -174,7 +174,7 @@ export const CHANGELOG: ChangelogEntry[] = [
         kind: "Fixed",
         items: [
           "Windows ConPTY lifecycle race - CreatePseudoConsole and ClosePseudoConsole now share one lock.",
-          "Console window no longer flashes when Oz spawns subprocesses (shell init, git).",
+          "Console window no longer flashes when cli-ck spawns subprocesses (shell init, git).",
           "New terminals no longer try to launch into the install directory.",
           "Shortcut changes made in Settings propagate to the main window without a restart.",
           "Agent and snippet editor dialogs scroll their body so Save/Cancel cannot get pushed off screen.",
@@ -204,7 +204,7 @@ export const CHANGELOG: ChangelogEntry[] = [
         kind: "Added",
         items: [
           "First Windows release (NSIS installer).",
-          "oz_open shell command - open files into a Oz editor tab from any terminal.",
+          "oz_open shell command - open files into a cli-ck editor tab from any terminal.",
           "Contributor docs and templates.",
           "Split panes in the terminal.",
           "Transient preview tabs with pinning behavior.",

@@ -6,7 +6,7 @@ icon: AiIdea
 
 The composer is the input surface for the main AI agent. It is mounted unconditionally at the app root and shares state between the docked `AiInputBar` and any other surface (selection actions, attach-from-explorer, etc.).
 
-<img src="/oz-website/ai_workflow.webp" alt="Oz AI agent proposing edit diffs" width="1200" />
+<img src="/cli-ck-website/ai_workflow.webp" alt="cli-ck AI agent proposing edit diffs" width="1200" />
 
 Toggle with `Cmd+I`.
 
@@ -24,11 +24,11 @@ Use `Cmd+L` while you have text selected to attach it as a selection chip. From 
 
 ## `@path` file references
 
-Type `@` and start the path. Oz fuzzy-matches against the workspace and inserts a chip pointing at the file. The file content is sent at submit, gated by the [secret deny-list](/docs/ai/security#secret-deny-list).
+Type `@` and start the path. cli-ck fuzzy-matches against the workspace and inserts a chip pointing at the file. The file content is sent at submit, gated by the [secret deny-list](/docs/ai/security#secret-deny-list).
 
 ## `#handle` snippets
 
-Type `#` to pick a saved snippet. Snippets are reusable prompt fragments stored in `oz-ai-snippets.json`. Useful for repeated context: "the schema for our auth flow", "the conventions for this repo", etc.
+Type `#` to pick a saved snippet. Snippets are reusable prompt fragments stored in `cli-ck-ai-snippets.json`. Useful for repeated context: "the schema for our auth flow", "the conventions for this repo", etc.
 
 ## Slash commands
 

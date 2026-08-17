@@ -18,7 +18,7 @@ export default function PrivacyPage() {
       <PageHero
         eyebrow="Privacy"
         title="Privacy"
-        lead="Oz has no accounts, no analytics, and no backend. Here's exactly what data leaves your machine, and when."
+        lead="cli-ck has no accounts, no analytics, and no backend. Here's exactly what data leaves your machine, and when."
         meta={<span>Last updated · {updated}</span>}
       />
 
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
           </li>
         </ul>
 
-        <h2>What Oz stores locally</h2>
+        <h2>What cli-ck stores locally</h2>
         <ul>
           <li>
             <strong>Settings and preferences</strong> in the standard app data
@@ -59,9 +59,9 @@ export default function PrivacyPage() {
           </li>
         </ul>
 
-        <h2>What Oz sends over the network</h2>
+        <h2>What cli-ck sends over the network</h2>
         <p>
-          Oz only makes network requests for things you explicitly enabled or
+          cli-ck only makes network requests for things you explicitly enabled or
           triggered:
         </p>
         <ul>
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
 
         <h2>What we (the project) collect</h2>
         <p>
-          Nothing. There is no Oz server. The only places where data about
+          Nothing. There is no cli-ck server. The only places where data about
           you might live are:
         </p>
         <ul>
@@ -98,8 +98,8 @@ export default function PrivacyPage() {
           </li>
           <li>
             <strong>Email</strong>, if you write to{" "}
-            <Link href="mailto:info@oz.app">info@oz.app</Link> or{" "}
-            <Link href="mailto:security@oz.app">security@oz.app</Link>.
+            <Link href="mailto:info@cli-ck.app">info@cli-ck.app</Link> or{" "}
+            <Link href="mailto:security@cli-ck.app">security@cli-ck.app</Link>.
           </li>
         </ul>
         <p>
@@ -125,8 +125,8 @@ export default function PrivacyPage() {
         <h2>Contact</h2>
         <p>
           Privacy questions:{" "}
-          <Link href="mailto:info@oz.app">info@oz.app</Link>. Security:{" "}
-          <Link href="mailto:security@oz.app">security@oz.app</Link>.
+          <Link href="mailto:info@cli-ck.app">info@cli-ck.app</Link>. Security:{" "}
+          <Link href="mailto:security@cli-ck.app">security@cli-ck.app</Link>.
           Source:{" "}
           <Link href={SITE.github} target="_blank" rel="noreferrer">
             {SITE.github.replace("https://", "")}

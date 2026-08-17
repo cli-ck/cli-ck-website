@@ -80,7 +80,7 @@ const platforms: PlatformBlock[] = [
         file: DOWNLOADS.linuxAur.file,
         url: DOWNLOADS.linuxAur.url,
         available: true,
-        command: "yay -S oz-bin",
+        command: "yay -S cli-ck-bin",
       },
     ],
   },

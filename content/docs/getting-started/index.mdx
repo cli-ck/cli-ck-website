@@ -1,46 +1,46 @@
 ---
 title: Install and first run
-description: Install Oz on macOS, Linux, or Windows, then connect your first AI provider.
+description: Install cli-ck on macOS, Linux, or Windows, then connect your first AI provider.
 icon: Rocket
 ---
 
-Oz ships as a signed desktop bundle. Download the installer for your platform from the [Releases](https://github.com/my-oz/oz/releases/latest) page. Oz auto-updates from there.
+cli-ck ships as a signed desktop bundle. Download the installer for your platform from the [Releases](https://github.com/cli-ck/cli-ck/releases/latest) page. cli-ck auto-updates from there.
 
 ## macOS
 
-Two separate `.dmg` builds - one for Apple Silicon (aarch64), one for Intel (x86_64). Pick the one that matches your hardware on the [Releases](https://github.com/my-oz/oz/releases/latest) page, drag Oz to `/Applications`, and launch.
+Two separate `.dmg` builds - one for Apple Silicon (aarch64), one for Intel (x86_64). Pick the one that matches your hardware on the [Releases](https://github.com/cli-ck/cli-ck/releases/latest) page, drag cli-ck to `/Applications`, and launch.
 
 ## Linux
 
-- **Arch / AUR:** `yay -S oz-bin` (or `paru`, etc.). Tracks the latest release.
+- **Arch / AUR:** `yay -S cli-ck-bin` (or `paru`, etc.). Tracks the latest release.
 - **Debian / Ubuntu:** install the `.deb` from Releases. Depends on `libwebkit2gtk-4.1-0` and `libgtk-3-0`.
 - **Fedora / RHEL:** install the `.rpm`. Depends on `webkit2gtk4.1` and `gtk3`.
-- **AppImage:** needs FUSE. If FUSE is missing, run `./Oz_*.AppImage --appimage-extract-and-run`.
+- **AppImage:** needs FUSE. If FUSE is missing, run `./cli-ck_*.AppImage --appimage-extract-and-run`.
 - On Wayland with rendering glitches, set `WEBKIT_DISABLE_DMABUF_RENDERER=1`. The `.deb` / `.rpm` packages link against the system GTK stack and tend to be smoother than the AppImage.
 
 ## Windows
 
 NSIS installer in `currentUser` mode (no admin required). WebView2 is bootstrapped offline.
 
-On first launch Windows may show "Windows protected your PC" because Oz is not code-signed yet. Click **More info** then **Run anyway**.
+On first launch Windows may show "Windows protected your PC" because cli-ck is not code-signed yet. Click **More info** then **Run anyway**.
 
 Default shell detection on Windows: `pwsh.exe` (PowerShell 7+) -> `powershell.exe` (Windows PowerShell 5.1) -> `cmd.exe`. WSL distros are first-class workspaces, not a wrapped subprocess. See [Workspaces](/docs/reference/workspaces).
 
 ## Connect your first AI provider
 
-Oz is BYOK. Pick any supported provider and paste your key in Settings.
+cli-ck is BYOK. Pick any supported provider and paste your key in Settings.
 
 1. Open **Settings -> Models** (`Cmd+,` then choose Models, or click the gear in the sidebar).
 2. Pick a provider (OpenAI, Anthropic, Google, Groq, xAI, Cerebras, OpenRouter, DeepSeek, Mistral, or any OpenAI-compatible endpoint).
 3. Paste your API key.
 
-<img src="/oz-website/settings_models.webp" alt="Settings Models tab" width="1200" />
+<img src="/cli-ck-website/settings_models.webp" alt="Settings Models tab" width="1200" />
 
-Keys are written to the OS keychain via the `keyring` crate (service `oz-ai`). They never touch disk, `localStorage`, or the settings file.
+Keys are written to the OS keychain via the `keyring` crate (service `cli-ck-ai`). They never touch disk, `localStorage`, or the settings file.
 
 ### Local and offline
 
-You can run entirely offline against LM Studio, MLX, or Ollama. Point Oz at the endpoint URL in Settings -> Models. No key required, just a model id at runtime.
+You can run entirely offline against LM Studio, MLX, or Ollama. Point cli-ck at the endpoint URL in Settings -> Models. No key required, just a model id at runtime.
 
 ## Build from source
 
