@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-27T00:00:00Z",
+  "title": "Design System: cli-ck",
+  "extensions": {
+    "colorMeta": {
+      "signal-deep": { "role": "primary", "displayName": "Deep Signal", "canonical": "#047857" },
+      "signal": { "role": "primary", "displayName": "Signal", "canonical": "#10b981", "tonalRamp": ["#022c1e", "#053f2c", "#065f3f", "#047857", "#10b981", "#34d399", "#6ee7b7", "#d1fae5"] },
+      "signal-bright": { "role": "primary", "displayName": "Signal Bright", "canonical": "#6ee7b7" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "oklch(0.218 0.008 223.9)", "tonalRamp": ["oklch(0.148 0.004 228.8)", "oklch(0.218 0.008 223.9)", "oklch(0.32 0.012 220)", "oklch(0.45 0.017 213.2)", "oklch(0.56 0.021 213.5)", "oklch(0.723 0.014 214.4)", "oklch(0.872 0.007 219.6)", "oklch(0.987 0.002 197.1)"] },
+      "ink-inverted": { "role": "neutral", "displayName": "Ink (dark-mode)", "canonical": "oklch(0.925 0.005 214.3)" },
+      "surface": { "role": "neutral", "displayName": "Surface", "canonical": "oklch(1 0 0)", "tonalRamp": ["oklch(0.148 0.004 228.8)", "oklch(0.275 0.011 216.9)", "oklch(0.378 0.015 216)", "oklch(0.56 0.021 213.5)", "oklch(0.723 0.014 214.4)", "oklch(0.872 0.007 219.6)", "oklch(0.963 0.002 197.1)", "oklch(1 0 0)"] },
+      "surface-dark": { "role": "neutral", "displayName": "Surface (dark, emerald-tinted)", "canonical": "oklch(0.155 0.028 162.0)", "tonalRamp": ["oklch(0.1 0.02 162)", "oklch(0.155 0.028 162.0)", "oklch(0.205 0.030 162.0)", "oklch(0.3 0.03 162)", "oklch(0.45 0.03 162)", "oklch(0.6 0.03 162)", "oklch(0.78 0.02 162)", "oklch(0.95 0.01 162)"] },
+      "surface-card-dark": { "role": "neutral", "displayName": "Surface Card (dark)", "canonical": "oklch(0.205 0.030 162.0)" },
+      "foreground": { "role": "neutral", "displayName": "Foreground", "canonical": "oklch(0.148 0.004 228.8)" },
+      "foreground-dark": { "role": "neutral", "displayName": "Foreground (dark-mode)", "canonical": "oklch(0.987 0.002 197.1)" },
+      "muted-foreground": { "role": "neutral", "displayName": "Muted Foreground", "canonical": "oklch(0.56 0.021 213.5)" },
+      "muted-foreground-dark": { "role": "neutral", "displayName": "Muted Foreground (dark-mode)", "canonical": "oklch(0.723 0.014 214.4)" },
+      "border": { "role": "neutral", "displayName": "Border", "canonical": "oklch(0.925 0.005 214.3)" },
+      "border-dark": { "role": "neutral", "displayName": "Border (dark-mode)", "canonical": "oklch(1 0 0 / 10%)" },
+      "field": { "role": "neutral", "displayName": "Field", "canonical": "oklch(0.925 0.005 214.3)" },
+      "field-dark": { "role": "neutral", "displayName": "Field (dark-mode)", "canonical": "oklch(1 0 0 / 15%)" },
+      "destructive": { "role": "neutral", "displayName": "Destructive", "canonical": "oklch(0.577 0.245 27.325)" },
+      "destructive-dark": { "role": "neutral", "displayName": "Destructive (dark-mode)", "canonical": "oklch(0.704 0.191 22.216)" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero H1 only." },
+      "headline": { "displayName": "Headline", "purpose": "Section H2s (SectionHeading)." },
+      "title": { "displayName": "Title", "purpose": "Feature-showcase H3s inside two-column blocks." },
+      "body": { "displayName": "Body", "purpose": "Paragraph copy, always set in muted-foreground." },
+      "label": { "displayName": "Label", "purpose": "Eyebrows, section index numbers, stat labels, terminal-frame captions." }
+    },
+    "shadows": [
+      { "name": "media-float", "value": "0 30px 80px -20px rgba(0,0,0,0.55)", "purpose": "Halo behind any framed product screenshot or embedded video." },
+      { "name": "card-ambient", "value": "0 1px 2px rgba(0,0,0,0.06), 0 1px 1px rgba(0,0,0,0.04)", "purpose": "Ceiling for ordinary card elevation; paired with a 5% foreground ring." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default transition easing for hover/focus state changes on buttons, inputs, badges." },
+      { "name": "spring-playful", "value": "stiffness 320, damping 22", "purpose": "Motion-lib spring used for the demo play-button hover scale." },
+      { "name": "fade-up", "value": "duration 0.5-0.6s, y 10-24px to 0", "purpose": "Scroll-reveal entrance for hero and section content (opacity + y translate)." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main CTA — ink fill, inverted-ink text, full pill radius, 1px press-down on active.",
+      "html": "<button class=\"ds-btn-primary\">Download for macOS</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 26px; border: 1px solid transparent; background: var(--primary); color: var(--primary-foreground); font-size: 14px; font-weight: 500; white-space: nowrap; transition: background-color 0.2s, transform 0.1s; } .ds-btn-primary:hover { background: color-mix(in oklab, var(--primary) 80%, transparent); } .ds-btn-primary:focus-visible { outline: none; border-color: var(--ring); box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent); } .ds-btn-primary:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Badge",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Pill-shaped label — same ink/surface inversion as the primary button, smaller and static.",
+      "html": "<span class=\"ds-badge\">v0.2.4</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; justify-content: center; height: 20px; padding: 2px 8px; border-radius: 22px; background: var(--primary); color: var(--primary-foreground); font-size: 12px; font-weight: 500; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat content tile — heavy 26px rounding, near-invisible 5% ring in place of a hard border.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-title\">Voice input</div><div class=\"ds-card-desc\">Talk to your terminal. Whisper or your provider of choice.</div></div>",
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 8px; padding: 24px; border-radius: 26px; background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 1px 1px rgba(0,0,0,0.04); border: 1px solid color-mix(in oklab, var(--foreground) 5%, transparent); } .ds-card-title { font-weight: 500; font-size: 16px; color: var(--card-foreground); } .ds-card-desc { font-size: 14px; line-height: 1.5; color: var(--muted-foreground); }"
+    },
+    {
+      "name": "Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text field — 22px radius, near-invisible fill at rest, ring appears only on focus.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"you@example.com\" />",
+      "css": ".ds-input { height: 36px; width: 100%; border-radius: 22px; border: 1px solid transparent; background: color-mix(in oklab, var(--input) 50%, transparent); padding: 4px 12px; font-size: 14px; color: var(--foreground); outline: none; transition: box-shadow 0.15s, border-color 0.15s; } .ds-input::placeholder { color: var(--muted-foreground); } .ds-input:focus-visible { border-color: var(--ring); box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent); }"
+    },
+    {
+      "name": "Terminal Chrome Frame",
+      "kind": "custom",
+      "refersTo": "terminal-chrome-frame",
+      "description": "Signature component wrapping product screenshots/video — dark zinc-950 shell regardless of site theme, muted dots (never traffic-light colors), mono caption, paired with Media Float elevation.",
+      "html": "<div class=\"ds-terminal-frame\"><div class=\"ds-terminal-bar\"><span class=\"ds-terminal-dot\"></span><span class=\"ds-terminal-dot\"></span><span class=\"ds-terminal-dot\"></span><span class=\"ds-terminal-caption\">cli-ck · demo</span></div><div class=\"ds-terminal-body\"></div></div>",
+      "css": ".ds-terminal-frame { position: relative; overflow: hidden; border-radius: 18px; border: 1px solid rgba(255,255,255,0.12); background: #09090b; box-shadow: 0 30px 80px -20px rgba(0,0,0,0.55); } .ds-terminal-bar { display: flex; align-items: center; gap: 6px; padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(9,9,11,0.9); } .ds-terminal-dot { width: 10px; height: 10px; border-radius: 999px; background: rgba(63,63,70,0.9); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); } .ds-terminal-caption { margin-left: 12px; font-family: ui-monospace, monospace; font-size: 11px; letter-spacing: 0.02em; color: #71717a; } .ds-terminal-body { aspect-ratio: 16 / 9; background: #09090b; }"
+    },
+    {
+      "name": "Seam Grid Tile",
+      "kind": "custom",
+      "refersTo": "seam-grid",
+      "description": "Signature tile-grid technique — grid background set to border color, cells set to page background, gap-px produces hairline seams without per-tile borders/shadows.",
+      "html": "<div class=\"ds-seam-grid\"><div class=\"ds-seam-tile\"><div class=\"ds-seam-value\">7 MB</div><div class=\"ds-seam-label\">App size</div></div><div class=\"ds-seam-tile\"><div class=\"ds-seam-value\">300ms</div><div class=\"ds-seam-label\">Cold start</div></div></div>",
+      "css": ".ds-seam-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; overflow: hidden; border-radius: 18px; border: 1px solid var(--border); background: var(--border); } .ds-seam-tile { padding: 24px; text-align: center; background: var(--background); } .ds-seam-value { font-family: ui-monospace, monospace; font-size: 24px; font-weight: 600; letter-spacing: -0.01em; color: var(--foreground); } .ds-seam-label { margin-top: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted-foreground); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Terminal",
+    "overview": "cli-ck's site is a restrained, monochrome workspace with exactly one glowing signal color — like a terminal prompt in a dark room. Every surface, button, and card is disciplined grayscale ink; discipline is what makes the one accent (emerald, matching the product's own logo mark) read as meaningful rather than decorative. The product's positioning — a ~7 MB, ~300 ms binary that does more with less than its Electron-based competitors — is expressed visually the same way: nothing is spent on ornament that isn't earned.\n\nThe site reads precise, restrained, and quietly confident. Confidence here means omission, not volume: exact numbers in monospace (7 MB, 300 ms, Apache-2.0) instead of marketing superlatives, generous whitespace instead of dense feature-wall layouts, and a single real-time WebGL shader instead of a library of decorative gradients. The one confirmed anti-reference is the generic SaaS gradient-mesh landing page — purple/blue blob gradients, stock-photo heroes, bento-grid-of-everything layouts. The animated background is the site's only \"mesh gradient,\" and it earns the exception by being real, physically simulated, and tied directly to the brand mark rather than a stock effect.",
+    "keyCharacteristics": [
+      "Monochrome UI chrome (ink-on-surface, inverted per theme) with zero colored buttons, links-as-color, or tinted borders.",
+      "One signal hue (emerald, three intensities) confined to the ambient shader background and the dark-mode surface tint.",
+      "Every major section opens with a mono index + eyebrow label before its heading — a recurring wayfinding device.",
+      "Heavy, consistent corner rounding (18–26px) across buttons, cards, and badges — soft and tactile despite the technical subject matter.",
+      "Flat UI at rest; depth is reserved for framed product media (screenshots, embedded video), never for ordinary chrome."
+    ],
+    "rules": [
+      { "name": "The Atmosphere-Only Rule", "body": "Signal green never appears in UI chrome — no colored buttons, links, icons, borders, or badges. Its only two homes are the ambient shader background and the dark-mode surface tint. It is a mood, not a UI color; the moment it starts filling a button, the system has been broken.", "section": "colors" },
+      { "name": "The Numbered Eyebrow Rule", "body": "Every major landing-page section opens with a mono index number (00, 01, 02…), a short hairline rule, and an uppercase eyebrow label, set immediately before the section heading. It's a recurring wayfinding device across the page, not a one-off decoration on any single section.", "section": "typography" },
+      { "name": "The Flat Chrome, Floating Media Rule", "body": "Ordinary UI stays flat or near-flat. Heavy shadow and blur are reserved for framed product screenshots and video, so depth signals 'this is a window into the real app,' not generic decoration. If a new component isn't literally framing a screenshot or video, it doesn't get a floating shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep buttons, cards, and badges heavily pill-rounded (26px / 22px radius) and monochrome ink — no colored chrome.",
+      "Do reserve the signal-green family (Deep Signal / Signal / Signal Bright) for the shader background and the dark-mode surface tint only.",
+      "Do open every major landing-page section with the mono index + eyebrow pattern (00, 01, 02…) for wayfinding consistency.",
+      "Do use the Seam Grid technique (border-as-background + gap-px) for any repeating tile grid instead of stacking individual card shadows.",
+      "Do frame any product screenshot or embedded video in the Terminal Chrome component (muted zinc dots, mono caption, dark zinc-950 shell) regardless of site theme.",
+      "Do keep copy terse with exact numbers (7 MB, 300 ms, Apache-2.0) rather than vague superlatives — this is a visual/voice invariant, not just a copy note."
+    ],
+    "donts": [
+      "Don't introduce a second accent hue. One signal color, at three fixed intensities, is the palette's only departure from grayscale.",
+      "Don't add gradient-mesh hero backgrounds, stock photography, or bento-grid-of-everything layouts — the WebGL shader is the one earned exception, and it's earned by being real and brand-tied, not decorative.",
+      "Don't add heavy shadows or thick borders to ordinary UI chrome (buttons, inputs, badges, stat tiles) — depth is reserved for framed media per the Flat Chrome, Floating Media Rule.",
+      "Don't sharpen buttons or cards toward smaller corner radii — the heavy rounding is a deliberate 'tactile and quiet' choice, not an unstyled default.",
+      "Don't use colored (red/yellow/green) traffic-light dots on Terminal Chrome frames — muted zinc only, to avoid reading as a generic macOS window mockup."
+    ]
+  }
+}
