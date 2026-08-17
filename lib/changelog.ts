@@ -4,10 +4,34 @@ export interface ChangelogEntry {
   version: string
   date?: string
   highlight?: string
+  /** One-line rename / migration callout, shown under the highlight. */
+  note?: string
   groups: { kind: ChangeKind; items: string[] }[]
 }
 
 export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: "0.2.6",
+    date: "18.08.2026",
+    highlight:
+      "npm install now ships cli-ck-branded desktop binaries instead of leftover Oz artifacts.",
+    note: "Oz is now cli-ck. Uninstall `@codecollab.co/oz` and Oz.app, then `npm install -g @codecollab.co/cli-ck`.",
+    groups: [
+      {
+        kind: "Changed",
+        items: [
+          "Renamed from Oz to cli-ck: package `@codecollab.co/cli-ck`, GitHub `cli-ck/cli-ck`, bundle ID `app.cli-ck.cli-ck`.",
+        ],
+      },
+      {
+        kind: "Fixed",
+        items: [
+          "npm launcher and GitHub release zips no longer use `oz_*` artifact names. `npm install -g @codecollab.co/cli-ck` now looks for `cli-ck_*` binaries.",
+          'Settings → About always shows cli-ck branding (name, bundle ID, GitHub, website) instead of whatever `getName()` returns from an old Oz binary, and surfaces failed external-link opens.',
+        ],
+      },
+    ],
+  },
   {
     version: "0.2.5",
     date: "27.07.2026",

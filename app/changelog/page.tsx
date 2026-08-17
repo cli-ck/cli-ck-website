@@ -109,6 +109,12 @@ export default function ChangelogPage() {
                       </p>
                     ) : null}
 
+                    {entry.note ? (
+                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                        {entry.note}
+                      </p>
+                    ) : null}
+
                     <div className="mt-5 space-y-5">
                       {entry.groups.map((g) => (
                         <div key={g.kind}>
