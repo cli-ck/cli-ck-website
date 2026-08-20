@@ -1,3 +1,7 @@
+// Site traffic before GoatCounter was wired up wasn't tracked - offset the
+// live count so the number reflects total views, not just post-setup ones.
+const VIEWS_BASELINE = 1200
+
 export async function getTotalViews(): Promise<number | null> {
   const code = process.env.GOATCOUNTER_CODE
   if (!code) {
@@ -17,7 +21,7 @@ export async function getTotalViews(): Promise<number | null> {
     const data = (await res.json()) as { count?: string }
     if (!data.count) return null
     const n = Number(data.count.replace(/[^0-9]/g, ""))
-    return Number.isFinite(n) ? n : null
+    return Number.isFinite(n) ? n + VIEWS_BASELINE : null
   } catch {
     return null
   }
