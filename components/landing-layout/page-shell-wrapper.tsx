@@ -3,12 +3,16 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { GlobalFooter } from "./global-footer"
 import { GlobalHeader } from "./global-header"
+import { RenameBanner } from "./rename-banner"
 
 export function PageShellWrapper({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <RenameBanner />
       <GlobalHeader />
-      <main className="relative">{children}</main>
+      <main className="relative pt-[var(--rename-banner-h,0px)] transition-[padding] duration-300">
+        {children}
+      </main>
       <GlobalFooter />
     </>
   )

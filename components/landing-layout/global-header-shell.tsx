@@ -40,7 +40,7 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-[var(--rename-banner-h,0px)] z-50 transition-all duration-300",
         scrolled ? "py-2" : "py-4"
       )}
     >
