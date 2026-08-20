@@ -1,6 +1,10 @@
 "use client"
 
-import { Download04Icon, GithubIcon, StarIcon } from "@hugeicons/core-free-icons"
+import {
+  Download04Icon,
+  GithubIcon,
+  StarIcon,
+} from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { motion } from "motion/react"
 import Image from "next/image"
@@ -9,9 +13,26 @@ import * as React from "react"
 
 import { Button } from "@/components/ui/button"
 import { SITE } from "@/lib/site"
-import { cn } from "@/lib/utils"
+import { cn, formatCompactNumber } from "@/lib/utils"
 import { ThemeToggleControl } from "./theme-toggle-control"
 import logoImg from "@/public/cli_ck_icon_256.png"
+
+function SimpleEyeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  )
+}
 
 const navLinks = [
   { href: "/#features", label: "Features" },
@@ -25,9 +46,16 @@ const navLinks = [
 interface HeaderShellProps {
   stars: string | null
   rawStars: number | null
+  downloads: number | null
+  views: number | null
 }
 
-export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
+export function GlobalHeaderShell({
+  stars,
+  rawStars,
+  downloads,
+  views,
+}: HeaderShellProps) {
   const [scrolled, setScrolled] = React.useState(false)
 
   React.useEffect(() => {
@@ -95,6 +123,47 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
               </Link>
             </motion.div>
           ) : null}
+
+          {downloads != null || views != null ? (
+            <motion.div
+              initial={{ opacity: 0, x: -4 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              aria-label={
+                [
+                  downloads != null ? `${downloads} downloads` : null,
+                  views != null ? `${views} views` : null,
+                ]
+                  .filter(Boolean)
+                  .join(", ") || undefined
+              }
+              className="hidden items-center gap-1.5 rounded-full border border-border/60 bg-background/60 px-2.5 py-1 font-mono text-[11px] tracking-tight text-foreground/80 backdrop-blur-md sm:inline-flex"
+            >
+              {downloads != null ? (
+                <span className="inline-flex items-center gap-1">
+                  <HugeiconsIcon
+                    icon={Download04Icon}
+                    className="size-3"
+                    strokeWidth={2.5}
+                  />
+                  <span className="tabular-nums">
+                    {formatCompactNumber(downloads)}
+                  </span>
+                </span>
+              ) : null}
+              {downloads != null && views != null ? (
+                <span className="text-muted-foreground/40">·</span>
+              ) : null}
+              {views != null ? (
+                <span className="inline-flex items-center gap-1">
+                  <SimpleEyeIcon className="size-3" />
+                  <span className="tabular-nums">
+                    {formatCompactNumber(views)}
+                  </span>
+                </span>
+              ) : null}
+            </motion.div>
+          ) : null}
         </div>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -113,19 +182,33 @@ export function GlobalHeaderShell({ stars, rawStars }: HeaderShellProps) {
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
-            <HugeiconsIcon icon={GithubIcon} className="size-3.5" strokeWidth={2} />
+            <HugeiconsIcon
+              icon={GithubIcon}
+              className="size-3.5"
+              strokeWidth={2}
+            />
             GitHub
           </Link>
         </nav>
 
         <div className="flex items-center gap-2">
           <ThemeToggleControl />
-          <Button asChild size="sm" className="rounded-full">
-            <Link href="#download">
-              <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
-              Downloads
-            </Link>
-          </Button>
+          <div className="relative">
+            <Button asChild size="sm" className="rounded-full">
+              <Link href="#download">
+                <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
+                Downloads
+              </Link>
+            </Button>
+            {downloads != null ? (
+              <span
+                aria-hidden
+                className="absolute -top-1.5 -right-1.5 inline-flex items-center justify-center rounded-full bg-background px-1 py-px font-mono text-[9px] leading-tight text-foreground tabular-nums shadow-sm ring-1 ring-border/60"
+              >
+                {formatCompactNumber(downloads)}
+              </span>
+            ) : null}
+          </div>
         </div>
       </div>
     </header>
