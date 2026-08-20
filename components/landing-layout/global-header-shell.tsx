@@ -2,7 +2,6 @@
 
 import {
   Download04Icon,
-  EyeIcon,
   GithubIcon,
   StarIcon,
 } from "@hugeicons/core-free-icons"
@@ -17,6 +16,23 @@ import { SITE } from "@/lib/site"
 import { cn, formatCompactNumber } from "@/lib/utils"
 import { ThemeToggleControl } from "./theme-toggle-control"
 import logoImg from "@/public/cli_ck_icon_256.png"
+
+function SimpleEyeIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  )
+}
 
 const navLinks = [
   { href: "/#features", label: "Features" },
@@ -140,11 +156,7 @@ export function GlobalHeaderShell({
               ) : null}
               {views != null ? (
                 <span className="inline-flex items-center gap-1">
-                  <HugeiconsIcon
-                    icon={EyeIcon}
-                    className="size-3"
-                    strokeWidth={2.5}
-                  />
+                  <SimpleEyeIcon className="size-3" />
                   <span className="tabular-nums">
                     {formatCompactNumber(views)}
                   </span>
