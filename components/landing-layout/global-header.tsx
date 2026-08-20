@@ -1,6 +1,7 @@
 import { getTotalDownloads } from "@/lib/downloads"
-import { formatStars, getRepoStars } from "@/lib/github"
+import { getRepoStars } from "@/lib/github"
 import { getTotalViews } from "@/lib/goatcounter"
+import { formatCompactNumber } from "@/lib/utils"
 import { GlobalHeaderShell } from "./global-header-shell"
 
 export async function GlobalHeader() {
@@ -11,7 +12,7 @@ export async function GlobalHeader() {
   ])
   return (
     <GlobalHeaderShell
-      stars={stars != null ? formatStars(stars) : null}
+      stars={stars != null ? formatCompactNumber(stars) : null}
       rawStars={stars}
       downloads={downloads}
       views={views}

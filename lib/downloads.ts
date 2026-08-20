@@ -1,18 +1,9 @@
+import { githubHeaders } from "./github"
 import { SITE } from "./site"
 
 const REPO_PATH = SITE.github.replace(/^https?:\/\/github\.com\//, "")
 const NPM_PACKAGES = ["@codecollab.co/cli-ck", "@codecollab.co/oz"]
 const DAY = 24 * 60 * 60 * 1000
-
-function githubHeaders() {
-  return {
-    Accept: "application/vnd.github+json",
-    "User-Agent": "cli-ck-website",
-    ...(process.env.GITHUB_TOKEN
-      ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
-      : {}),
-  }
-}
 
 async function getGithubReleaseDownloads(): Promise<number | null> {
   try {
