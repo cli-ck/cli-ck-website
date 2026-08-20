@@ -5,6 +5,7 @@ import { GridFeatures } from "@/components/landing-layout/grid-features"
 import { FeatureHighlights } from "@/components/landing-layout/feature-highlights"
 import { GlobalFooter } from "@/components/landing-layout/global-footer"
 import { GlobalHeader } from "@/components/landing-layout/global-header"
+import { RenameBanner } from "@/components/landing-layout/rename-banner"
 import { LandingHero } from "@/components/landing-layout/landing-hero"
 import { ProductStats } from "@/components/landing-layout/product-stats"
 import { DOWNLOADS, SITE, VERSION } from "@/lib/site"
@@ -61,8 +62,9 @@ export default function HomePage() {
 
   return (
     <>
+      <RenameBanner />
       <GlobalHeader />
-      <main className="relative">
+      <main className="relative pt-[var(--rename-banner-h,0px)] transition-[padding] duration-300">
         <LandingHero />
         <ProductStats />
         {/* <ProductDemo /> */}
