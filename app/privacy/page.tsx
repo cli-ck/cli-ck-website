@@ -1,7 +1,11 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
-import { PageHero, PageShellWrapper, Prose } from "@/components/landing-layout/page-shell-wrapper"
+import {
+  PageHero,
+  PageShellWrapper,
+  Prose,
+} from "@/components/landing-layout/page-shell-wrapper"
 import { SITE } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -61,8 +65,8 @@ export default function PrivacyPage() {
 
         <h2>What cli-ck sends over the network</h2>
         <p>
-          cli-ck only makes network requests for things you explicitly enabled or
-          triggered:
+          cli-ck only makes network requests for things you explicitly enabled
+          or triggered:
         </p>
         <ul>
           <li>
@@ -101,10 +105,16 @@ export default function PrivacyPage() {
             <Link href="mailto:info@cli-ck.app">info@cli-ck.app</Link> or{" "}
             <Link href="mailto:security@cli-ck.app">security@cli-ck.app</Link>.
           </li>
+          <li>
+            <strong>GoatCounter</strong>, a cookie-less page-view counter for
+            this site, used to show the live visit count on the homepage. It
+            counts visits in aggregate - no personal data, no cross-site
+            tracking, no cookies.
+          </li>
         </ul>
         <p>
-          We don&apos;t run analytics on this site, don&apos;t set tracking
-          cookies, and don&apos;t embed third-party trackers.
+          Outside of that one counter, we don&apos;t set tracking cookies or
+          embed third-party trackers.
         </p>
 
         <h2>Third-party AI providers</h2>

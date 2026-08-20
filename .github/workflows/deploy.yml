@@ -4,6 +4,10 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+  schedule:
+    # Refreshes the live download/star/view counts even on days with no
+    # commits - they're baked into the static export at build time.
+    - cron: "0 6 * * *"
 
 permissions:
   contents: read
@@ -35,6 +39,9 @@ jobs:
         run: pnpm install
       - name: Build with Next.js
         run: pnpm build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOATCOUNTER_CODE: ${{ secrets.GOATCOUNTER_CODE }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
