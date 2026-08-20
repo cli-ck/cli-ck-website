@@ -1,6 +1,11 @@
 export async function getTotalViews(): Promise<number | null> {
   const code = process.env.GOATCOUNTER_CODE
-  if (!code) return null
+  if (!code) {
+    // ponytail: dev-only placeholder to eyeball the pill layout without a
+    // real GoatCounter account. NODE_ENV is "production" for `pnpm build`,
+    // so this never reaches the deployed static export.
+    return process.env.NODE_ENV === "development" ? 1234 : null
+  }
   try {
     const res = await fetch(
       `https://${code}.goatcounter.com/counter/TOTAL.json`,
