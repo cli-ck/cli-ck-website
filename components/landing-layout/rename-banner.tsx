@@ -5,19 +5,34 @@ import * as React from "react"
 
 const STORAGE_KEY = "cli-ck-rename-banner-dismissed"
 
+/** Survives remounts so client navigations don't wait another effect. */
+let remembered: boolean | null = null
+
+function readDismissed(): boolean {
+  return localStorage.getItem(STORAGE_KEY) === "1"
+}
+
+function persistDismissed() {
+  localStorage.setItem(STORAGE_KEY, "1")
+  remembered = true
+}
+
 export function RenameBanner() {
   const ref = React.useRef<HTMLDivElement>(null)
-  const [dismissed, setDismissed] = React.useState(false)
+  // null = not read yet. Defaulting to false painted the banner on every
+  // SSR/hydration, then hid it after localStorage — a flash after dismiss.
+  const [dismissed, setDismissed] = React.useState<boolean | null>(remembered)
 
   React.useEffect(() => {
-    // hydration-safe: localStorage isn't available during SSR
+    const next = readDismissed()
+    remembered = next
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (localStorage.getItem(STORAGE_KEY) === "1") setDismissed(true)
+    setDismissed(next)
   }, [])
 
   React.useEffect(() => {
     const el = ref.current
-    if (!el || dismissed) {
+    if (!el || dismissed !== false) {
       document.documentElement.style.setProperty("--rename-banner-h", "0px")
       return
     }
@@ -32,14 +47,13 @@ export function RenameBanner() {
     return () => observer.disconnect()
   }, [dismissed])
 
-  // clear the offset on unmount so it never sticks around stale
   React.useEffect(() => {
     return () => {
       document.documentElement.style.setProperty("--rename-banner-h", "0px")
     }
   }, [])
 
-  if (dismissed) return null
+  if (dismissed !== false) return null
 
   return (
     <div
@@ -63,7 +77,7 @@ export function RenameBanner() {
         <button
           type="button"
           onClick={() => {
-            localStorage.setItem(STORAGE_KEY, "1")
+            persistDismissed()
             setDismissed(true)
           }}
           aria-label="Dismiss"
