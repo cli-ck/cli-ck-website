@@ -65,16 +65,11 @@ const TASKS: Task[] = [
     description:
       "Write factorial(n) and a test that checks it with node's assert module.",
     results: {
-      "cli-ck": { ms: 5749, tokens: 7004, pass: true },
-      codex: { ms: 8668, tokens: 41937, pass: true },
-      goose: {
-        ms: 152571,
-        tokens: 4325,
-        pass: false,
-        note: "Goose's own generated test file had a syntax error",
-      },
-      opencode: { ms: 11263, tokens: 59662, pass: true },
-      aider: { ms: 6789, tokens: 873, pass: true },
+      "cli-ck": { ms: 6255, tokens: 6898, pass: true },
+      codex: { ms: 10249, tokens: 42108, pass: true },
+      goose: { ms: 7454, tokens: 4094, pass: true },
+      opencode: { ms: 13682, tokens: 59497, pass: true },
+      aider: { ms: 7010, tokens: 873, pass: true },
     },
   },
   {
@@ -83,11 +78,21 @@ const TASKS: Task[] = [
     description:
       "A failing test expects an inclusive range sum; fix the loop without touching the test.",
     results: {
-      "cli-ck": { ms: 6209, tokens: 8928, pass: true },
-      codex: { ms: 13358, tokens: 70109, pass: true },
-      goose: { ms: 10627, tokens: 4482, pass: true },
-      opencode: { ms: 26105, tokens: 164308, pass: true },
-      aider: { ms: 7448, tokens: 1122, pass: true },
+      "cli-ck": {
+        ms: 2117,
+        tokens: 568,
+        pass: true,
+        note: "Single-shot fast path — skipped the tool-calling loop entirely",
+      },
+      codex: { ms: 10835, tokens: 70260, pass: true },
+      goose: {
+        ms: 1693,
+        tokens: 3479,
+        pass: false,
+        note: "Goose's fix didn't actually resolve the bug (test still failed: 10 !== 15)",
+      },
+      opencode: { ms: 27334, tokens: 81106, pass: true },
+      aider: { ms: 6665, tokens: 1122, pass: true },
     },
   },
   {
@@ -96,11 +101,11 @@ const TASKS: Task[] = [
     description:
       "Extract a shared helper to remove duplicated averaging logic across two functions.",
     results: {
-      "cli-ck": { ms: 8184, tokens: 9506, pass: true },
-      codex: { ms: 17243, tokens: 42832, pass: true },
-      goose: { ms: 6763, tokens: 4093, pass: true },
-      opencode: { ms: 25119, tokens: 103669, pass: true },
-      aider: { ms: 7469, tokens: 1260, pass: true },
+      "cli-ck": { ms: 15080, tokens: 12580, pass: true },
+      codex: { ms: 20236, tokens: 71683, pass: true },
+      goose: { ms: 12286, tokens: 4215, pass: true },
+      opencode: { ms: 20751, tokens: 102363, pass: true },
+      aider: { ms: 7447, tokens: 1297, pass: true },
     },
   },
   {
@@ -109,11 +114,16 @@ const TASKS: Task[] = [
     description:
       "Make divide-by-zero throw a specific error message; leave normal division untouched.",
     results: {
-      "cli-ck": { ms: 7384, tokens: 9415, pass: true },
-      codex: { ms: 11698, tokens: 56461, pass: true },
-      goose: { ms: 6953, tokens: 4050, pass: true },
-      opencode: { ms: 16971, tokens: 99607, pass: true },
-      aider: { ms: 6217, tokens: 1017, pass: true },
+      "cli-ck": {
+        ms: 2206,
+        tokens: 565,
+        pass: true,
+        note: "Single-shot fast path — skipped the tool-calling loop entirely",
+      },
+      codex: { ms: 10740, tokens: 83525, pass: true },
+      goose: { ms: 6982, tokens: 4026, pass: true },
+      opencode: { ms: 24919, tokens: 122775, pass: true },
+      aider: { ms: 6125, tokens: 1017, pass: true },
     },
   },
   {
@@ -122,11 +132,11 @@ const TASKS: Task[] = [
     description:
       "Parse --key value pairs and standalone --flag booleans into an object, plus a test.",
     results: {
-      "cli-ck": { ms: 6435, tokens: 7459, pass: true },
-      codex: { ms: 12365, tokens: 42798, pass: true },
-      goose: { ms: 11489, tokens: 4369, pass: true },
-      opencode: { ms: 12956, tokens: 60183, pass: true },
-      aider: { ms: 7449, tokens: 954, pass: true },
+      "cli-ck": { ms: 7378, tokens: 7432, pass: true },
+      codex: { ms: 13690, tokens: 42781, pass: true },
+      goose: { ms: 9473, tokens: 4372, pass: true },
+      opencode: { ms: 20305, tokens: 81140, pass: true },
+      aider: { ms: 7299, tokens: 954, pass: true },
     },
   },
 ]
@@ -206,7 +216,10 @@ export default function BenchmarksPage() {
             Same five coding tasks, the same model ({MODEL}), and the same
             grader against Codex CLI, Goose, OpenCode, and Aider: we actually
             run the code each agent produces. No self-reported scores — and no
-            cherry-picking where cli-ck doesn&apos;t come out ahead.
+            cherry-picking where cli-ck doesn&apos;t come out ahead. This run
+            includes an experimental single-shot fast path (still in review, not
+            yet shipped) that skips the tool-calling loop entirely for small,
+            simple edits.
           </>
         }
         meta={
@@ -266,15 +279,19 @@ export default function BenchmarksPage() {
         <SectionEyebrow>Head to head</SectionEyebrow>
         <SectionHeading>The honest tradeoff</SectionHeading>
         <SectionLead>
-          After a round of token-efficiency fixes, cli-ck now beats the other
-          two tool-calling agents tested — Codex CLI and OpenCode — on both
-          speed and tokens outright, and is the fastest tool in this run
-          overall. Aider still uses fewer tokens per task: it skips the
-          tool-calling loop entirely and rewrites whole files in one shot. Goose
-          uses fewer tokens too, but hit a two-and-a-half-minute hang on one
-          task in this run and then failed it on its own generated syntax error
-          — every other tool, including Goose on its remaining four tasks,
-          reached correct code.
+          cli-ck beats the other two tool-calling agents tested — Codex CLI and
+          OpenCode — on both speed and tokens outright, and is the fastest tool
+          in this run overall. Two of the five tasks here took a new single-shot
+          fast path that skips the tool-calling loop for small, self-contained
+          edits — those two dropped 15–17x in tokens on their own. The other
+          three fell back to the normal tool-calling loop, which is by design:
+          it only takes the fast path when it&apos;s confident, and falls back
+          rather than risk a wrong edit. Aider still uses fewer tokens per task
+          overall: it skips tool-calling entirely, for every task, and rewrites
+          whole files in one shot. Goose uses fewer tokens too, but its fix for
+          the off-by-one bug didn&apos;t actually pass the test — every other
+          tool, including Goose on its remaining four tasks, reached correct
+          code.
         </SectionLead>
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -426,17 +443,8 @@ export default function BenchmarksPage() {
           <li>
             This is one run of five tasks, not a statistically averaged suite —
             treat it as a snapshot, not a permanent ranking. Individual task
-            times and token counts varied noticeably between runs during testing
-            — cli-ck&apos;s dedup-refactor task in particular occasionally
-            spirals into a longer self-correction loop (up to ~40k tokens on
-            some runs, ~9.5k on this one); that variance isn&apos;t fixed by the
-            changes below, and this page doesn&apos;t hide it behind a favorable
-            run.
-          </li>
-          <li>
-            Goose&apos;s pure-function total includes a 152-second run where it
-            hung before producing a test file with its own syntax error;
-            excluding that outlier, its other four runs averaged ~9s.
+            times and token counts vary noticeably between runs; this page
+            doesn&apos;t hide that behind a favorable run.
           </li>
           <li>
             Token counts are each tool&apos;s own reported input + output
@@ -465,6 +473,29 @@ export default function BenchmarksPage() {
             for the exact changes and what was deliberately left out (a more
             aggressive tool cut was tested but not shipped, since it would have
             cost real capability like codebase search and subagents).
+          </li>
+          <li>
+            On top of those fixes, this run also used an experimental
+            single-shot fast path: for a small, freshly-started scope, one
+            structured-output call proposes edits directly instead of running
+            the full tool-calling loop, verified with a syntax check before
+            being accepted. It only took that path on 2 of 5 tasks here — the
+            other 3 didn&apos;t clear its own eligibility or verification bar
+            and fell back to the normal agent loop at roughly the same cost as
+            without it. Neither this nor the fixes above have shipped in cli-ck
+            yet — see{" "}
+            <Link
+              href="https://github.com/cli-ck/cli-ck/pull/315"
+              target="_blank"
+              rel="noreferrer"
+              className="text-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:decoration-foreground"
+            >
+              PR #315
+            </Link>{" "}
+            (stacked on PR #314, both still open) and isn&apos;t wired into the
+            live chat UI yet — it&apos;s a headless-only capability for now,
+            deliberately kept out of the streaming/approval UX until it&apos;s
+            proven out further.
           </li>
         </ul>
       </Prose>
