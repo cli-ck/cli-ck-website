@@ -65,15 +65,16 @@ const TASKS: Task[] = [
     description:
       "Write factorial(n) and a test that checks it with node's assert module.",
     results: {
-      "cli-ck": { ms: 5328, tokens: 7537, pass: true },
-      codex: {
-        ms: 11788,
-        tokens: 41806,
-        pass: true,
+      "cli-ck": { ms: 5749, tokens: 7004, pass: true },
+      codex: { ms: 8668, tokens: 41937, pass: true },
+      goose: {
+        ms: 152571,
+        tokens: 4325,
+        pass: false,
+        note: "Goose's own generated test file had a syntax error",
       },
-      goose: { ms: 8501, tokens: 4231, pass: true },
-      opencode: { ms: 11927, tokens: 59660, pass: true },
-      aider: { ms: 6477, tokens: 873, pass: true },
+      opencode: { ms: 11263, tokens: 59662, pass: true },
+      aider: { ms: 6789, tokens: 873, pass: true },
     },
   },
   {
@@ -82,11 +83,11 @@ const TASKS: Task[] = [
     description:
       "A failing test expects an inclusive range sum; fix the loop without touching the test.",
     results: {
-      "cli-ck": { ms: 9364, tokens: 19554, pass: true },
-      codex: { ms: 12811, tokens: 56906, pass: true },
-      goose: { ms: 12004, tokens: 4403, pass: true },
-      opencode: { ms: 25743, tokens: 142556, pass: true },
-      aider: { ms: 6661, tokens: 1122, pass: true },
+      "cli-ck": { ms: 6209, tokens: 8928, pass: true },
+      codex: { ms: 13358, tokens: 70109, pass: true },
+      goose: { ms: 10627, tokens: 4482, pass: true },
+      opencode: { ms: 26105, tokens: 164308, pass: true },
+      aider: { ms: 7448, tokens: 1122, pass: true },
     },
   },
   {
@@ -95,11 +96,11 @@ const TASKS: Task[] = [
     description:
       "Extract a shared helper to remove duplicated averaging logic across two functions.",
     results: {
-      "cli-ck": { ms: 33209, tokens: 83334, pass: true },
-      codex: { ms: 10009, tokens: 42463, pass: true },
-      goose: { ms: 6499, tokens: 4073, pass: true },
-      opencode: { ms: 20739, tokens: 103658, pass: true },
-      aider: { ms: 7319, tokens: 1284, pass: true },
+      "cli-ck": { ms: 8184, tokens: 9506, pass: true },
+      codex: { ms: 17243, tokens: 42832, pass: true },
+      goose: { ms: 6763, tokens: 4093, pass: true },
+      opencode: { ms: 25119, tokens: 103669, pass: true },
+      aider: { ms: 7469, tokens: 1260, pass: true },
     },
   },
   {
@@ -108,11 +109,11 @@ const TASKS: Task[] = [
     description:
       "Make divide-by-zero throw a specific error message; leave normal division untouched.",
     results: {
-      "cli-ck": { ms: 5248, tokens: 10971, pass: true },
-      codex: { ms: 15412, tokens: 85977, pass: true },
-      goose: { ms: 4879, tokens: 3742, pass: true },
-      opencode: { ms: 25283, tokens: 164768, pass: true },
-      aider: { ms: 8493, tokens: 1017, pass: true },
+      "cli-ck": { ms: 7384, tokens: 9415, pass: true },
+      codex: { ms: 11698, tokens: 56461, pass: true },
+      goose: { ms: 6953, tokens: 4050, pass: true },
+      opencode: { ms: 16971, tokens: 99607, pass: true },
+      aider: { ms: 6217, tokens: 1017, pass: true },
     },
   },
   {
@@ -121,11 +122,11 @@ const TASKS: Task[] = [
     description:
       "Parse --key value pairs and standalone --flag booleans into an object, plus a test.",
     results: {
-      "cli-ck": { ms: 6837, tokens: 7857, pass: true },
-      codex: { ms: 12206, tokens: 42684, pass: true },
-      goose: { ms: 8157, tokens: 4328, pass: true },
-      opencode: { ms: 27218, tokens: 80875, pass: true },
-      aider: { ms: 7010, tokens: 954, pass: true },
+      "cli-ck": { ms: 6435, tokens: 7459, pass: true },
+      codex: { ms: 12365, tokens: 42798, pass: true },
+      goose: { ms: 11489, tokens: 4369, pass: true },
+      opencode: { ms: 12956, tokens: 60183, pass: true },
+      aider: { ms: 7449, tokens: 954, pass: true },
     },
   },
 ]
@@ -185,6 +186,11 @@ function ResultCell({ result }: { result: Result }) {
       <Badge variant={result.pass ? "secondary" : "destructive"}>
         {result.pass ? "Pass" : "Fail"}
       </Badge>
+      {result.note && (
+        <div className="max-w-[12rem] text-[11px] leading-snug text-muted-foreground">
+          {result.note}
+        </div>
+      )}
     </div>
   )
 }
@@ -224,7 +230,7 @@ export default function BenchmarksPage() {
               {cliCk.pass}/{TASKS.length}
             </div>
             <div className="text-xs tracking-wide text-muted-foreground uppercase">
-              cli-ck tasks passed — tied with all 4
+              cli-ck tasks passed
             </div>
           </div>
           <div className="flex flex-col items-center justify-center gap-2 bg-background px-6 py-8 text-center">
@@ -260,10 +266,15 @@ export default function BenchmarksPage() {
         <SectionEyebrow>Head to head</SectionEyebrow>
         <SectionHeading>The honest tradeoff</SectionHeading>
         <SectionLead>
-          cli-ck comes out ahead of the other two tool-calling agents tested.
-          Goose and Aider — leaner tools that make far fewer model round trips
-          per task — beat cli-ck on raw speed and token count here. All five
-          tools reached correct code on every task in this run.
+          After a round of token-efficiency fixes, cli-ck now beats the other
+          two tool-calling agents tested — Codex CLI and OpenCode — on both
+          speed and tokens outright, and is the fastest tool in this run
+          overall. Aider still uses fewer tokens per task: it skips the
+          tool-calling loop entirely and rewrites whole files in one shot. Goose
+          uses fewer tokens too, but hit a two-and-a-half-minute hang on one
+          task in this run and then failed it on its own generated syntax error
+          — every other tool, including Goose on its remaining four tasks,
+          reached correct code.
         </SectionLead>
 
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -415,9 +426,17 @@ export default function BenchmarksPage() {
           <li>
             This is one run of five tasks, not a statistically averaged suite —
             treat it as a snapshot, not a permanent ranking. Individual task
-            times varied noticeably between runs during testing (cli-ck&apos;s
-            dedup-refactor run, for example, took 33s here versus 12–15s in
-            earlier runs on the same task).
+            times and token counts varied noticeably between runs during testing
+            — cli-ck&apos;s dedup-refactor task in particular occasionally
+            spirals into a longer self-correction loop (up to ~40k tokens on
+            some runs, ~9.5k on this one); that variance isn&apos;t fixed by the
+            changes below, and this page doesn&apos;t hide it behind a favorable
+            run.
+          </li>
+          <li>
+            Goose&apos;s pure-function total includes a 152-second run where it
+            hung before producing a test file with its own syntax error;
+            excluding that outlier, its other four runs averaged ~9s.
           </li>
           <li>
             Token counts are each tool&apos;s own reported input + output
@@ -429,6 +448,23 @@ export default function BenchmarksPage() {
             Warp&apos;s <code>oz agent run</code> was originally in scope too,
             but its plain (non-cloud) exec command is credit-gated with no
             bring-your-own-key path, so it isn&apos;t included.
+          </li>
+          <li>
+            cli-ck&apos;s numbers here reflect a set of token-efficiency fixes
+            (lite system prompt, trimmed idle tools, history pruning, a
+            code-enforced do-not-touch guard, and a verify-before-declaring-done
+            hint) — see{" "}
+            <Link
+              href="https://github.com/cli-ck/cli-ck/pull/314"
+              target="_blank"
+              rel="noreferrer"
+              className="text-foreground underline decoration-muted-foreground/40 underline-offset-4 hover:decoration-foreground"
+            >
+              PR #314
+            </Link>{" "}
+            for the exact changes and what was deliberately left out (a more
+            aggressive tool cut was tested but not shipped, since it would have
+            cost real capability like codebase search and subagents).
           </li>
         </ul>
       </Prose>
