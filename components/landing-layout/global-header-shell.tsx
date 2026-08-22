@@ -35,12 +35,9 @@ function SimpleEyeIcon({ className }: { className?: string }) {
 }
 
 const navLinks = [
-  { href: "/#features", label: "Features" },
   { href: "/benchmarks", label: "Benchmarks" },
   { href: "/about", label: "About" },
   { href: "/changelog", label: "Changelog" },
-  { href: "/docs/reference/shortcuts", label: "Shortcuts" },
-  { href: "/#faq", label: "FAQ" },
   { href: "/docs", label: "Docs" },
 ]
 
