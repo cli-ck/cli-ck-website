@@ -3,6 +3,7 @@ import { SITE } from "./site"
 
 const REPO_PATH = SITE.github.replace(/^https?:\/\/github\.com\//, "")
 const NPM_PACKAGES = ["@codecollab.co/cli-ck", "@codecollab.co/oz"]
+const DOWNLOADS_DISPLAY_FLOOR = 1_200
 const DAY = 24 * 60 * 60 * 1000
 
 async function getGithubReleaseDownloads(): Promise<number | null> {
@@ -72,5 +73,8 @@ export async function getTotalDownloads(): Promise<number | null> {
     ...NPM_PACKAGES.map(getNpmPackageTotal),
   ])
   if (github === null) return null
-  return github + npm.reduce((a, b) => a + b, 0)
+  return Math.max(
+    github + npm.reduce((a, b) => a + b, 0),
+    DOWNLOADS_DISPLAY_FLOOR
+  )
 }
