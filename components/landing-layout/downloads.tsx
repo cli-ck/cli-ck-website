@@ -10,17 +10,24 @@ import {
 import type { IconSvgElement } from "@hugeicons/react"
 import { HugeiconsIcon } from "@hugeicons/react"
 import Link from "next/link"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
+import {
+  getLatestBetaDownloads,
+  type ReleaseDownload,
+  type ReleaseDownloads,
+} from "@/lib/beta-downloads"
 import { DOWNLOADS, SITE, VERSION } from "@/lib/site"
 import { cn } from "@/lib/utils"
-import { ContentSection, SectionEyebrow, SectionHeading } from "./content-section"
+import {
+  ContentSection,
+  SectionEyebrow,
+  SectionHeading,
+} from "./content-section"
 
-interface BuildRow {
+interface BuildRow extends ReleaseDownload {
   arch: string
-  file: string
-  url?: string
-  available: boolean
   command?: string
 }
 
@@ -29,77 +36,81 @@ interface PlatformBlock {
   icon: IconSvgElement
   name: string
   builds: BuildRow[]
-  note?: string
 }
 
-const platforms: PlatformBlock[] = [
-  {
-    id: "macos",
-    icon: AppleIcon,
-    name: "macOS",
-    builds: [
-      {
-        arch: "Apple Silicon · M1+",
-        file: DOWNLOADS.macSilicon.file,
-        url: DOWNLOADS.macSilicon.url,
-        available: true,
-      },
-      {
-        arch: "Intel · x86_64",
-        file: DOWNLOADS.macIntel.file,
-        url: DOWNLOADS.macIntel.url,
-        available: true,
-      },
-    ],
-  },
-  {
-    id: "linux",
-    icon: ComputerIcon,
-    name: "Linux",
-    builds: [
-      {
-        arch: "AppImage · x86_64",
-        file: DOWNLOADS.linuxAppImage.file,
-        url: DOWNLOADS.linuxAppImage.url,
-        available: true,
-      },
-      {
-        arch: ".deb · Debian / Ubuntu",
-        file: DOWNLOADS.linuxDeb.file,
-        url: DOWNLOADS.linuxDeb.url,
-        available: true,
-      },
-      {
-        arch: ".rpm · Fedora / RHEL",
-        file: DOWNLOADS.linuxRpm.file,
-        url: DOWNLOADS.linuxRpm.url,
-        available: true,
-      },
-      {
-        arch: "AUR · Arch / Manjaro",
-        file: DOWNLOADS.linuxAur.file,
-        url: DOWNLOADS.linuxAur.url,
-        available: true,
-        command: "yay -S cli-ck-bin",
-      },
-    ],
-  },
-  {
-    id: "windows",
-    icon: MicrosoftIcon,
-    name: "Windows",
-    builds: [
-      {
-        arch: "x86_64 · NSIS installer",
-        file: DOWNLOADS.windows.file,
-        url: DOWNLOADS.windows.url,
-        available: true,
-      },
-    ],
-  },
-]
+type Channel = "normal" | "developer"
+
+const stableDownloads: ReleaseDownloads = {
+  version: VERSION,
+  releaseUrl: `${SITE.githubReleases}/tag/v${VERSION}`,
+  macSilicon: DOWNLOADS.macSilicon,
+  macIntel: DOWNLOADS.macIntel,
+  linuxAppImage: DOWNLOADS.linuxAppImage,
+  linuxDeb: DOWNLOADS.linuxDeb,
+  linuxRpm: DOWNLOADS.linuxRpm,
+  windows: DOWNLOADS.windows,
+}
+
+function platformBlocks(
+  downloads: ReleaseDownloads,
+  includeAur: boolean
+): PlatformBlock[] {
+  const linuxBuilds: BuildRow[] = [
+    { arch: "AppImage · x86_64", ...downloads.linuxAppImage },
+    { arch: ".deb · Debian / Ubuntu", ...downloads.linuxDeb },
+    { arch: ".rpm · Fedora / RHEL", ...downloads.linuxRpm },
+  ]
+  if (includeAur) {
+    linuxBuilds.push({
+      arch: "AUR · Arch / Manjaro",
+      file: DOWNLOADS.linuxAur.file,
+      url: DOWNLOADS.linuxAur.url,
+      command: "yay -S cli-ck-bin",
+    })
+  }
+
+  return [
+    {
+      id: "macos",
+      icon: AppleIcon,
+      name: "macOS",
+      builds: [
+        { arch: "Apple Silicon · M1+", ...downloads.macSilicon },
+        { arch: "Intel · x86_64", ...downloads.macIntel },
+      ],
+    },
+    { id: "linux", icon: ComputerIcon, name: "Linux", builds: linuxBuilds },
+    {
+      id: "windows",
+      icon: MicrosoftIcon,
+      name: "Windows",
+      builds: [{ arch: "x86_64 · NSIS installer", ...downloads.windows }],
+    },
+  ]
+}
 
 export function Downloads() {
+  const [channel, setChannel] = useState<Channel>("normal")
+  const [beta, setBeta] = useState<ReleaseDownloads | null>(null)
+  const [betaStatus, setBetaStatus] = useState<
+    "idle" | "loading" | "loaded" | "failed"
+  >("idle")
+  const selectDeveloperMode = () => {
+    setChannel("developer")
+    if (beta || betaStatus === "loading") return
+    setBetaStatus("loading")
+    void getLatestBetaDownloads()
+      .then((downloads) => {
+        setBeta(downloads)
+        setBetaStatus("loaded")
+      })
+      .catch(() => setBetaStatus("failed"))
+  }
+  const activeDownloads = channel === "normal" ? stableDownloads : beta
+  const platforms = activeDownloads
+    ? platformBlocks(activeDownloads, channel === "normal")
+    : []
+
   return (
     <ContentSection
       id="download"
@@ -111,73 +122,93 @@ export function Downloads() {
       />
       <div className="relative grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <SectionEyebrow>06 - Downloads · v{VERSION}</SectionEyebrow>
+          <SectionEyebrow>
+            06 - Downloads ·{" "}
+            {activeDownloads ? `v${activeDownloads.version}` : "Developer mode"}
+          </SectionEyebrow>
           <SectionHeading className="mt-3">
             Pick a build. Run it.
           </SectionHeading>
           <p className="mt-5 max-w-md text-base text-muted-foreground sm:text-[17px]">
-            No account, no telemetry. Verified releases on GitHub. SHA256
-            checksums published with every tag.
+            {channel === "normal"
+              ? "Stable releases include automatic updates."
+              : "Beta builds install separately and may be less reliable."}
           </p>
 
-          <div className="mt-8 space-y-6">
-            {/* macOS Box */}
-            <div className="rounded-2xl border border-border/60 bg-background/60 p-5 backdrop-blur-sm">
-              <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-                macOS
-              </div>
-              <div className="mt-2 text-sm text-foreground/85">
-                Apple Silicon - Intel build below
-              </div>
-              <Button asChild size="lg" className="mt-4 w-full rounded-full">
-                <Link href={DOWNLOADS.macSilicon.url} target="_blank" rel="noreferrer">
-                  <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
-                  Download for macOS
-                </Link>
-              </Button>
+          <div className="mt-6" role="group" aria-label="Download mode">
+            <div className="inline-flex rounded-full border border-border/60 bg-background/60 p-1">
+              <button
+                type="button"
+                aria-pressed={channel === "normal"}
+                onClick={() => setChannel("normal")}
+                className={cn(
+                  "rounded-full px-3 py-1.5 text-sm transition-colors",
+                  channel === "normal"
+                    ? "bg-foreground text-background"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Normal mode
+              </button>
+              <button
+                type="button"
+                aria-pressed={channel === "developer"}
+                onClick={selectDeveloperMode}
+                className={cn(
+                  "rounded-full px-3 py-1.5 text-sm transition-colors",
+                  channel === "developer"
+                    ? "bg-foreground text-background"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                Developer mode
+              </button>
             </div>
-
-            {/* Windows Box */}
-            <div className="rounded-2xl border border-border/60 bg-background/60 p-5 backdrop-blur-sm">
-              <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-                Windows
-              </div>
-              <div className="mt-2 text-sm text-foreground/85">
-                x86_64 · NSIS installer
-              </div>
-              <Button asChild size="lg" className="mt-4 w-full rounded-full">
-                <Link href={DOWNLOADS.windows.url} target="_blank" rel="noreferrer">
-                  <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
-                  Download for Windows
-                </Link>
-              </Button>
-            </div>
-
-            {/* Linux Box */}
-            <div className="rounded-2xl border border-border/60 bg-background/60 p-5 backdrop-blur-sm">
-              <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
-                Linux
-              </div>
-              <div className="mt-2 text-sm text-foreground/85">
-                AppImage · x86_64
-              </div>
-              <Button asChild size="lg" className="mt-4 w-full rounded-full">
-                <Link href={DOWNLOADS.linuxAppImage.url} target="_blank" rel="noreferrer">
-                  <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
-                  Download for Linux
-                </Link>
-              </Button>
-            </div>
+            <p className="mt-2 max-w-md text-sm text-muted-foreground">
+              {channel === "normal"
+                ? "Use Developer mode only when you want to test the current beta."
+                : "Developer mode does not switch your automatic updates to beta."}
+            </p>
           </div>
+
+          {activeDownloads ? (
+            <div className="mt-8 space-y-6">
+              <DownloadCard
+                label="macOS"
+                detail="Apple Silicon - Intel build below"
+                download={activeDownloads.macSilicon}
+              />
+              <DownloadCard
+                label="Windows"
+                detail="x86_64 · NSIS installer"
+                download={activeDownloads.windows}
+              />
+              <DownloadCard
+                label="Linux"
+                detail="AppImage · x86_64"
+                download={activeDownloads.linuxAppImage}
+              />
+            </div>
+          ) : (
+            <div className="mt-8 rounded-2xl border border-border/60 bg-background/60 p-5 text-sm text-muted-foreground">
+              {betaStatus === "loading"
+                ? "Finding the latest beta release…"
+                : betaStatus === "failed"
+                  ? "Could not load beta releases. Try again, or use the GitHub releases page."
+                  : "No beta is published right now. Alphas are shared directly with invited testers."}
+            </div>
+          )}
 
           <div className="mt-6">
             <Link
-              href={SITE.githubReleases}
+              href={activeDownloads?.releaseUrl ?? SITE.githubReleases}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1 font-mono text-[11px] tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-foreground"
             >
-              All releases & checksums
+              {channel === "developer"
+                ? "Beta releases on GitHub"
+                : "All releases & checksums"}
               <HugeiconsIcon
                 icon={ArrowRight01Icon}
                 className="size-3"
@@ -210,11 +241,6 @@ export function Downloads() {
                       <div className="text-base font-medium tracking-tight">
                         {p.name}
                       </div>
-                      {p.note && (
-                        <div className="font-mono text-[11px] tracking-[0.12em] text-muted-foreground uppercase">
-                          {p.note}
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -259,7 +285,7 @@ export function Downloads() {
                             </Button>
                           ) : null}
                         </div>
-                      ) : b.available && b.url ? (
+                      ) : b.url ? (
                         <Button
                           asChild
                           size="sm"
@@ -284,9 +310,45 @@ export function Downloads() {
                 </ul>
               </div>
             ))}
+            {!activeDownloads && (
+              <div className="px-6 py-10 text-center text-sm text-muted-foreground">
+                Select Normal mode for the latest stable build.
+              </div>
+            )}
           </div>
         </div>
       </div>
     </ContentSection>
+  )
+}
+
+function DownloadCard({
+  label,
+  detail,
+  download,
+}: {
+  label: string
+  detail: string
+  download: ReleaseDownload
+}) {
+  return (
+    <div className="rounded-2xl border border-border/60 bg-background/60 p-5 backdrop-blur-sm">
+      <div className="font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
+        {label}
+      </div>
+      <div className="mt-2 text-sm text-foreground/85">{detail}</div>
+      {download.url ? (
+        <Button asChild size="lg" className="mt-4 w-full rounded-full">
+          <Link href={download.url} target="_blank" rel="noreferrer">
+            <HugeiconsIcon icon={Download04Icon} strokeWidth={2} />
+            Download for {label}
+          </Link>
+        </Button>
+      ) : (
+        <p className="mt-4 text-sm text-muted-foreground">
+          Not included in this beta.
+        </p>
+      )}
+    </div>
   )
 }
