@@ -39,6 +39,7 @@ function SimpleEyeIcon({ className }: { className?: string }) {
 
 const navLinks = [
   { href: "/updates", label: "Updates" },
+  { href: "/benchmarks", label: "Benchmarks" },
   { href: "/about", label: "About" },
   { href: "/changelog", label: "Changelog" },
   { href: "/docs", label: "Docs" },

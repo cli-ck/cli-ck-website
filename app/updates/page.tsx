@@ -1,11 +1,9 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 
 import {
   PageHero,
   PageShellWrapper,
 } from "@/components/landing-layout/page-shell-wrapper"
-import { Button } from "@/components/ui/button"
 import { UpdatesBoard } from "@/components/updates/updates-board"
 import { SITE } from "@/lib/site"
 
@@ -31,22 +29,6 @@ export default function UpdatesPage() {
           </>
         }
       />
-      <div className="mx-auto mb-12 flex max-w-3xl flex-wrap justify-center gap-2 px-4 sm:px-6">
-        <Button asChild variant="outline" size="sm">
-          <Link href="/benchmarks">Benchmarks</Link>
-        </Button>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/changelog">Changelog</Link>
-        </Button>
-        <Button asChild variant="outline" size="sm">
-          <Link href="/docs">Docs</Link>
-        </Button>
-        <Button asChild variant="outline" size="sm">
-          <Link href={SITE.github} target="_blank" rel="noreferrer">
-            GitHub
-          </Link>
-        </Button>
-      </div>
       <UpdatesBoard />
     </PageShellWrapper>
   )
