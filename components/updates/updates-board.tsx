@@ -18,8 +18,8 @@ type FeatureRequest = {
   id: string
   title: string
   description: string
-  name: string
-  email: string
+  name?: string
+  email?: string
   status: Status
   createdAt: string
   ownerToken: string
@@ -51,6 +51,108 @@ const columns: { status: Status; label: string; description: string }[] = [
   },
 ]
 
+const INTERNAL_REQUESTS: FeatureRequest[] = [
+  {
+    id: "internal-code-intel-sidebar",
+    title: "Workspace-scoped Code Intel sidebar",
+    description:
+      "Ask who calls a symbol, find exact code, and inspect diff impact without leaving the Click workspace.",
+    status: "in-progress",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-command-blocks",
+    title: "Command-aware terminal blocks",
+    description:
+      "Group terminal commands and output so developers can navigate, search, copy, rerun, or attach a block to AI context.",
+    status: "in-progress",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-media-previews",
+    title: "Workspace media previews",
+    description:
+      "Preview images, video, audio, and PDF files directly inside the workspace.",
+    status: "in-progress",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-agent-sessions",
+    title: "Supervised coding-agent sessions",
+    description:
+      "Run coding agents in terminal sessions with visible status, approvals, cancellation, and workspace ownership.",
+    status: "in-progress",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-space-recovery",
+    title: "Safer Spaces and workspace recovery",
+    description:
+      "Restore valid tabs and layouts even when individual persisted records are malformed, with recoverable diagnostics.",
+    status: "in-progress",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-github-workflow",
+    title: "Native GitHub issue and pull-request workflow",
+    description:
+      "Open issues into Click workspaces, carry their context into agent sessions, and prepare reviewable pull requests.",
+    status: "upcoming",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-mcp-management",
+    title: "Managed MCP servers in Settings",
+    description:
+      "Connect trusted external tools through a policy-aware settings flow with clear permissions and support boundaries.",
+    status: "upcoming",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-multi-agent",
+    title: "Multi-agent orchestration",
+    description:
+      "Coordinate several agents against related tasks with explicit state, cancellation, dependencies, and shared worktrees.",
+    status: "requested",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-remote-environments",
+    title: "Remote runtime environments",
+    description:
+      "Work across local, SSH, WSL, VM, and future cloud hosts with session identity and capability discovery.",
+    status: "requested",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-renderer-experiment",
+    title: "Optional Ghostty/WebGPU renderer",
+    description:
+      "Evaluate a modern renderer behind the current xterm.js/WebGL fallback only after compatibility and performance gates pass.",
+    status: "delayed",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+  {
+    id: "internal-billing-boundary",
+    title: "Billing and entitlement boundary",
+    description:
+      "Define what stays free, what becomes paid, and how limits degrade safely after the v0.3.5 reliability gate is complete.",
+    status: "delayed",
+    createdAt: "2026-11-02T00:00:00.000Z",
+    ownerToken: "click-internal",
+  },
+]
+
 function getOwnerToken() {
   const stored = window.localStorage.getItem(OWNER_KEY)
   if (stored) return stored
@@ -63,17 +165,26 @@ function avatarLetter(name: string) {
   return name.trim().charAt(0).toUpperCase() || "?"
 }
 
+function loadRequests() {
+  if (typeof window === "undefined") return INTERNAL_REQUESTS
+  const saved = window.localStorage.getItem(STORAGE_KEY)
+  if (!saved) return INTERNAL_REQUESTS
+
+  try {
+    const stored = JSON.parse(saved) as FeatureRequest[]
+    const requests = new Map(
+      INTERNAL_REQUESTS.map((request) => [request.id, request])
+    )
+    stored.forEach((request) => requests.set(request.id, request))
+    return Array.from(requests.values())
+  } catch {
+    return INTERNAL_REQUESTS
+  }
+}
+
 export function UpdatesBoard() {
-  const [requests, setRequests] = React.useState<FeatureRequest[]>(() => {
-    if (typeof window === "undefined") return []
-    const saved = window.localStorage.getItem(STORAGE_KEY)
-    if (!saved) return []
-    try {
-      return JSON.parse(saved) as FeatureRequest[]
-    } catch {
-      return []
-    }
-  })
+  const [requests, setRequests] =
+    React.useState<FeatureRequest[]>(INTERNAL_REQUESTS)
   const [ownerToken] = React.useState<string | null>(() =>
     typeof window === "undefined" ? null : getOwnerToken()
   )
@@ -83,6 +194,11 @@ export function UpdatesBoard() {
   const [description, setDescription] = React.useState("")
   const [name, setName] = React.useState("")
   const [email, setEmail] = React.useState("")
+
+  React.useEffect(() => {
+    const timeoutId = window.setTimeout(() => setRequests(loadRequests()), 0)
+    return () => window.clearTimeout(timeoutId)
+  }, [])
 
   function openNewRequest() {
     setEditing(null)
@@ -97,8 +213,8 @@ export function UpdatesBoard() {
     setEditing(request)
     setTitle(request.title)
     setDescription(request.description)
-    setName(request.name)
-    setEmail(request.email)
+    setName(request.name ?? "")
+    setEmail(request.email ?? "")
     setDialogOpen(true)
   }
 
@@ -225,14 +341,16 @@ export function UpdatesBoard() {
                         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                           {request.description}
                         </p>
-                        <div className="mt-4 flex items-center gap-2 border-t border-border/50 pt-3">
-                          <span className="flex size-6 items-center justify-center rounded-full bg-foreground text-[11px] font-semibold text-background">
-                            {avatarLetter(request.name)}
-                          </span>
-                          <span className="text-xs text-muted-foreground">
-                            {request.name}
-                          </span>
-                        </div>
+                        {request.name ? (
+                          <div className="mt-4 flex items-center gap-2 border-t border-border/50 pt-3">
+                            <span className="flex size-6 items-center justify-center rounded-full bg-foreground text-[11px] font-semibold text-background">
+                              {avatarLetter(request.name)}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {request.name}
+                            </span>
+                          </div>
+                        ) : null}
                       </article>
                     )
                   })}
@@ -251,7 +369,7 @@ export function UpdatesBoard() {
       <Button
         type="button"
         size="icon-lg"
-        className="fixed right-5 bottom-5 z-40 rounded-full shadow-lg sm:right-8 sm:bottom-8"
+        className="fixed right-5 bottom-5 z-40 size-12 rounded-full shadow-lg sm:right-8 sm:bottom-8"
         aria-label="Add a feature request"
         onClick={openNewRequest}
       >
