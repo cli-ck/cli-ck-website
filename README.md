@@ -16,7 +16,7 @@
 ---
 
 <p align="center">
-  <img src="cli-ck-website-demo.png" alt="cli-ck website" width="820" />
+  <img src="cli-ck-website-demo-current.png" alt="cli-ck website" width="820" />
 </p>
 
 The source for [cli-ck.app](https://cli-ck.github.io/cli-ck-website), the landing page for **cli-ck**, a lightweight terminal-first AI-native dev workspace. Open-sourced because people kept asking how the animated background and the overall design were built, so here it is, end to end.
