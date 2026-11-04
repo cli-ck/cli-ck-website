@@ -21,6 +21,7 @@ type FeatureRequest = {
   name?: string
   email?: string
   status: Status
+  track?: string
   createdAt: string
   ownerToken: string
 }
@@ -51,106 +52,269 @@ const columns: { status: Status; label: string; description: string }[] = [
   },
 ]
 
+const INTERNAL_DATE = "2026-11-02T00:00:00.000Z"
+
+function internalRequest(
+  request: Pick<FeatureRequest, "id" | "title" | "description" | "status"> & {
+    track: string
+  }
+): FeatureRequest {
+  return {
+    ...request,
+    createdAt: INTERNAL_DATE,
+    ownerToken: "click-internal",
+  }
+}
+
 const INTERNAL_REQUESTS: FeatureRequest[] = [
-  {
-    id: "internal-code-intel-sidebar",
+  internalRequest({
+    id: "release-code-intel-sidebar",
     title: "Workspace-scoped Code Intel sidebar",
     description:
-      "Ask who calls a symbol, find exact code, and inspect diff impact without leaving the Click workspace.",
+      "Ask who calls a symbol, find exact code, and inspect change impact without leaving the Click workspace.",
     status: "in-progress",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-command-blocks",
-    title: "Command-aware terminal blocks",
+    track: "v0.3.0",
+  }),
+  internalRequest({
+    id: "release-subscription-login",
+    title: "Subscription login for supported providers",
     description:
-      "Group terminal commands and output so developers can navigate, search, copy, rerun, or attach a block to AI context.",
+      "Use an existing supported subscription during setup instead of requiring a separate provider API key.",
     status: "in-progress",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-media-previews",
-    title: "Workspace media previews",
+    track: "v0.3.0",
+  }),
+  internalRequest({
+    id: "release-approval-recovery",
+    title: "Approval-flow recovery",
     description:
-      "Preview images, video, audio, and PDF files directly inside the workspace.",
+      "Keep a conversation recoverable when a message arrives while an approve or deny action is waiting.",
     status: "in-progress",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-agent-sessions",
-    title: "Supervised coding-agent sessions",
+    track: "v0.3.0",
+  }),
+  internalRequest({
+    id: "release-guarded-auto-routing",
+    title: "Guarded Auto model routing",
     description:
-      "Run coding agents in terminal sessions with visible status, approvals, cancellation, and workspace ownership.",
+      "Choose only from locally configured model tiers and fall back safely without approving tools or changing files automatically.",
     status: "in-progress",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-space-recovery",
-    title: "Safer Spaces and workspace recovery",
+    track: "v0.3.0",
+  }),
+  internalRequest({
+    id: "beta-pty-workspace",
+    title: "Native PTY terminal with tabs and splits",
     description:
-      "Restore valid tabs and layouts even when individual persisted records are malformed, with recoverable diagnostics.",
+      "Work in a terminal with tabs, splits, WebGL rendering, persisted layout, scrollback, resize, and shell behavior.",
     status: "in-progress",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-github-workflow",
-    title: "Native GitHub issue and pull-request workflow",
+    track: "v0.3.0-beta.1",
+  }),
+  internalRequest({
+    id: "beta-editor-intelligence",
+    title: "Code editor with LSP and AI assistance",
     description:
-      "Open issues into Click workspaces, carry their context into agent sessions, and prepare reviewable pull requests.",
+      "Edit with CodeMirror, language-server support, AI completion, and AI-assisted diff review.",
+    status: "in-progress",
+    track: "v0.3.0-beta.1",
+  }),
+  internalRequest({
+    id: "beta-git-workflow",
+    title: "Git staging, history, and graph views",
+    description:
+      "Stage changes, create commits, work with branches, inspect history, and understand repository relationships.",
+    status: "in-progress",
+    track: "v0.3.0-beta.1",
+  }),
+  internalRequest({
+    id: "beta-spaces",
+    title: "Spaces and workspace management",
+    description:
+      "Organize projects and restore the working context needed to continue across sessions.",
+    status: "in-progress",
+    track: "v0.3.0-beta.1",
+  }),
+  internalRequest({
+    id: "beta-model-options",
+    title: "BYOK, subscription, and local model support",
+    description:
+      "Choose between provider keys, supported subscriptions, and local models while keeping control of model access.",
+    status: "in-progress",
+    track: "v0.3.0-beta.1",
+  }),
+  internalRequest({
+    id: "beta-supervised-agents",
+    title: "Agents, subagents, and supervised tools",
+    description:
+      "Run supervised agent workflows with plan mode, approvals, cancellation, browser automation, and worktrees.",
+    status: "in-progress",
+    track: "v0.3.0-beta.1",
+  }),
+  internalRequest({
+    id: "beta-project-previews",
+    title: "Markdown, web, media, and project previews",
+    description:
+      "Preview common project content and media without leaving the Click workspace.",
+    status: "in-progress",
+    track: "v0.3.0-beta.1",
+  }),
+  internalRequest({
+    id: "beta-ssh-cross-platform",
+    title: "SSH sessions and cross-platform desktop support",
+    description:
+      "Connect to SSH terminals and use the same workspace model across supported desktop platforms.",
+    status: "in-progress",
+    track: "v0.3.0-beta.1",
+  }),
+  internalRequest({
+    id: "p0-provider-neutral-sessions",
+    title: "Provider-neutral agent sessions",
+    description:
+      "Give every supported agent one structured lifecycle for prompts, tools, images, cancellation, compaction, authentication failures, and history.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p0-durable-runtime",
+    title: "Durable background runtime",
+    description:
+      "Keep long-running terminal and agent work independent from renderer reloads, app updates, and ordinary restarts where possible.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p0-session-recovery",
+    title: "Session adoption and recovery",
+    description:
+      "Reconnect to owned running sessions with explicit identity, adoption, restart-generation, and recovery states.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p0-agent-state-machine",
+    title: "Explicit agent state machine",
+    description:
+      "Represent working, waiting, blocked, cancelling, failed, and completed states as durable structured state.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p0-tool-call-events",
+    title: "Structured tool-call events",
+    description:
+      "Expose typed tool requests, approvals, results, errors, and progress while retaining Click’s approval policy.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p0-cancellation-compaction",
+    title: "Agent cancellation and compaction",
+    description:
+      "Stop, compact, retry, and resume long turns while settling pending work into a recoverable session state.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p0-multi-agent-orchestration",
+    title: "Multi-agent orchestration",
+    description:
+      "Coordinate controlled parallel sessions with explicit task, workspace, status, dependency, and ownership information.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p0-worktree-control-center",
+    title: "Multi-agent worktree control center",
+    description:
+      "See active agents, worktrees, branches, changed files, test results, and lifecycle actions in one place.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p0-agent-dependency-graph",
+    title: "Agent dependency graph",
+    description:
+      "Make implementation, test, review, documentation, and merge dependencies visible before work can progress unsafely.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p0-competing-implementations",
+    title: "Competing implementation mode",
+    description:
+      "Compare isolated implementations by diff, tests, cost, and review findings without merging anything automatically.",
+    status: "in-progress",
+    track: "P0",
+  }),
+  internalRequest({
+    id: "p1-github-issues",
+    title: "Native GitHub issue workflow",
+    description:
+      "Open an issue into a Click workspace and carry its context into an agent session.",
     status: "upcoming",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-mcp-management",
+    track: "Next",
+  }),
+  internalRequest({
+    id: "p1-github-pull-requests",
+    title: "Native pull-request workflow",
+    description:
+      "Inspect, create, update, review, and prepare pull requests from the same work context.",
+    status: "upcoming",
+    track: "Next",
+  }),
+  internalRequest({
+    id: "p1-mcp-management",
     title: "Managed MCP servers in Settings",
     description:
       "Connect trusted external tools through a policy-aware settings flow with clear permissions and support boundaries.",
     status: "upcoming",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-multi-agent",
-    title: "Multi-agent orchestration",
-    description:
-      "Coordinate several agents against related tasks with explicit state, cancellation, dependencies, and shared worktrees.",
-    status: "requested",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-remote-environments",
+    track: "Next",
+  }),
+  internalRequest({
+    id: "p1-remote-environments",
     title: "Remote runtime environments",
     description:
       "Work across local, SSH, WSL, VM, and future cloud hosts with session identity and capability discovery.",
+    status: "upcoming",
+    track: "Next",
+  }),
+  internalRequest({
+    id: "p1-mobile-companion",
+    title: "Mobile companion and push notifications",
+    description:
+      "Supervise sessions and receive completion, failure, blocking, and approval updates away from the desktop.",
     status: "requested",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-renderer-experiment",
+    track: "Later",
+  }),
+  internalRequest({
+    id: "p2-artifact-sharing",
+    title: "Shared agent artifacts",
+    description:
+      "Attach logs, screenshots, diffs, recordings, builds, and reports to engineering work.",
+    status: "requested",
+    track: "Later",
+  }),
+  internalRequest({
+    id: "p2-capability-plugins",
+    title: "Capability-based plugins",
+    description:
+      "Let extensions declare permissions and run in isolated workers with reviewable lifecycle access.",
+    status: "requested",
+    track: "Later",
+  }),
+  internalRequest({
+    id: "delayed-renderer-experiment",
     title: "Optional Ghostty/WebGPU renderer",
     description:
-      "Evaluate a modern renderer behind the current xterm.js/WebGL fallback only after compatibility and performance gates pass.",
+      "Evaluate a modern renderer behind the current fallback only after compatibility, accessibility, and performance gates pass.",
     status: "delayed",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
-  {
-    id: "internal-billing-boundary",
+    track: "Delayed",
+  }),
+  internalRequest({
+    id: "delayed-billing-boundary",
     title: "Billing and entitlement boundary",
     description:
-      "Define what stays free, what becomes paid, and how limits degrade safely after the v0.3.5 reliability gate is complete.",
+      "Define what stays free, what becomes paid, and how limits degrade safely after reliability gates are complete.",
     status: "delayed",
-    createdAt: "2026-11-02T00:00:00.000Z",
-    ownerToken: "click-internal",
-  },
+    track: "Delayed",
+  }),
 ]
 
 function getOwnerToken() {
@@ -175,7 +339,9 @@ function loadRequests() {
     const requests = new Map(
       INTERNAL_REQUESTS.map((request) => [request.id, request])
     )
-    stored.forEach((request) => requests.set(request.id, request))
+    stored
+      .filter((request) => request.ownerToken !== "click-internal")
+      .forEach((request) => requests.set(request.id, request))
     return Array.from(requests.values())
   } catch {
     return INTERNAL_REQUESTS
@@ -338,6 +504,11 @@ export function UpdatesBoard() {
                             </div>
                           ) : null}
                         </div>
+                        {request.track ? (
+                          <span className="mt-2 inline-flex rounded-full border border-border/60 px-2 py-0.5 font-mono text-[10px] text-muted-foreground">
+                            {request.track}
+                          </span>
+                        ) : null}
                         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                           {request.description}
                         </p>
