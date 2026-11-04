@@ -1,4 +1,4 @@
-export const VERSION = "0.2.6"
+export const VERSION = "0.3.0-alpha-1"
 
 export const SITE = {
   name: "cli-ck",

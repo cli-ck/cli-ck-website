@@ -11,6 +11,33 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: "0.3.0-alpha-1",
+    highlight:
+      "Code intelligence, safer model routing, subscription login, and more recoverable agent approvals.",
+    groups: [
+      {
+        kind: "Added",
+        items: [
+          "Workspace-scoped Code Intel tools in the AI Sidebar for callers and callees, exact declarations, and change impact.",
+          "Subscription login for supported providers, so existing subscriptions can be used during setup.",
+          "Guarded Auto routing that chooses only from locally configured model tiers.",
+        ],
+      },
+      {
+        kind: "Changed",
+        items: [
+          "Agent approval state remains visible and recoverable when a message arrives while an approval action is waiting.",
+        ],
+      },
+      {
+        kind: "Fixed",
+        items: [
+          "Conversations no longer become permanently stuck after input arrives during an approve or deny step.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.2.6",
     date: "18.08.2026",
     highlight:
@@ -27,7 +54,7 @@ export const CHANGELOG: ChangelogEntry[] = [
         kind: "Fixed",
         items: [
           "npm launcher and GitHub release zips no longer use `oz_*` artifact names. `npm install -g @codecollab.co/cli-ck` now looks for `cli-ck_*` binaries.",
-          'Settings → About always shows cli-ck branding (name, bundle ID, GitHub, website) instead of whatever `getName()` returns from an old Oz binary, and surfaces failed external-link opens.',
+          "Settings → About always shows cli-ck branding (name, bundle ID, GitHub, website) instead of whatever `getName()` returns from an old Oz binary, and surfaces failed external-link opens.",
         ],
       },
     ],
