@@ -7,15 +7,15 @@ export function ScrollGuard() {
     const html = document.documentElement
     const body = document.body
 
-    const prevHtmlOverscroll = html.style.overscrollBehavior
-    const prevBodyOverscroll = body.style.overscrollBehavior
+    const prevHtmlOverscrollY = html.style.overscrollBehaviorY
+    const prevBodyOverscrollY = body.style.overscrollBehaviorY
 
-    html.style.overscrollBehavior = "none"
-    body.style.overscrollBehavior = "none"
+    html.style.overscrollBehaviorY = "none"
+    body.style.overscrollBehaviorY = "none"
 
     return () => {
-      html.style.overscrollBehavior = prevHtmlOverscroll
-      body.style.overscrollBehavior = prevBodyOverscroll
+      html.style.overscrollBehaviorY = prevHtmlOverscrollY
+      body.style.overscrollBehaviorY = prevBodyOverscrollY
     }
   }, [])
 
