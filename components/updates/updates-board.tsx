@@ -11,6 +11,7 @@ import * as React from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { AuthGateDialog } from "@/components/auth/auth-gate-dialog"
 
 type Status = "requested" | "upcoming" | "in-progress" | "delayed"
 
@@ -348,13 +349,14 @@ function loadRequests() {
   }
 }
 
-export function UpdatesBoard() {
+export function UpdatesBoard({ requireAuth = true }: { requireAuth?: boolean }) {
   const [requests, setRequests] =
     React.useState<FeatureRequest[]>(INTERNAL_REQUESTS)
   const [ownerToken] = React.useState<string | null>(() =>
     typeof window === "undefined" ? null : getOwnerToken()
   )
   const [dialogOpen, setDialogOpen] = React.useState(false)
+  const [authDialogOpen, setAuthDialogOpen] = React.useState(false)
   const [editing, setEditing] = React.useState<FeatureRequest | null>(null)
   const [title, setTitle] = React.useState("")
   const [description, setDescription] = React.useState("")
@@ -367,6 +369,10 @@ export function UpdatesBoard() {
   }, [])
 
   function openNewRequest() {
+    if (requireAuth) {
+      setAuthDialogOpen(true)
+      return
+    }
     setEditing(null)
     setTitle("")
     setDescription("")
@@ -430,11 +436,16 @@ export function UpdatesBoard() {
               moves.
             </p>
           </div>
-          <p className="max-w-sm text-xs leading-relaxed text-muted-foreground/80 sm:text-right">
-            Editing and deletion are limited to the browser that created a
-            request in this static preview. Email ownership links need a
-            connected backend before launch.
-          </p>
+          <div className="flex flex-col gap-3 sm:items-end">
+            <Button type="button" onClick={openNewRequest}>
+              <HugeiconsIcon icon={PlusSignIcon} strokeWidth={2.2} />
+              New feature request
+            </Button>
+            <p className="max-w-sm text-xs leading-relaxed text-muted-foreground/80 sm:text-right">
+              Sign in will be required to create, edit, or delete requests.
+              Roadmap status moves remain controlled by Click.
+            </p>
+          </div>
         </div>
 
         <div className="grid gap-4 xl:grid-cols-4">
@@ -546,6 +557,8 @@ export function UpdatesBoard() {
       >
         <HugeiconsIcon icon={PlusSignIcon} strokeWidth={2.2} />
       </Button>
+
+      <AuthGateDialog open={authDialogOpen} onOpenChange={setAuthDialogOpen} />
 
       <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
         <Dialog.Portal>
