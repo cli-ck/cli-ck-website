@@ -1,8 +1,7 @@
 "use client"
 
-import { GithubIcon, GoogleIcon } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
 import { Dialog } from "radix-ui"
+import { SignInButton, SignUpButton } from "@clerk/nextjs"
 
 import { Button } from "@/components/ui/button"
 
@@ -23,27 +22,15 @@ export function AuthGateDialog({
           </Dialog.Title>
           <Dialog.Description className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Sign in before creating, editing, or deleting your feature requests.
-            Google and GitHub login will be connected through Clerk.
+            Use your Click account to manage feature requests and dashboard data.
           </Dialog.Description>
           <div className="mt-6 grid gap-3">
-            <Button type="button" className="h-11 justify-start gap-3" disabled>
-              <HugeiconsIcon icon={GoogleIcon} strokeWidth={2} />
-              Continue with Google
-              <span className="ml-auto text-[10px] font-normal text-muted-foreground">
-                Preview
-              </span>
-            </Button>
-            <Button type="button" variant="outline" className="h-11 justify-start gap-3" disabled>
-              <HugeiconsIcon icon={GithubIcon} strokeWidth={2} />
-              Continue with GitHub
-              <span className="ml-auto text-[10px] font-normal text-muted-foreground">
-                Preview
-              </span>
-            </Button>
+            <SignInButton mode="modal">Sign in to Click</SignInButton>
+            <SignUpButton mode="modal">Create a Click account</SignUpButton>
           </div>
           <p className="mt-5 border-t border-border/60 pt-4 text-xs leading-relaxed text-muted-foreground">
-            Clerk is not connected in this local preview. No credentials are
-            required yet.
+            Authentication is connected. Usage storage and protected dashboard
+            data will follow in the server-backed slice.
           </p>
           <Dialog.Close asChild>
             <Button type="button" variant="ghost" className="mt-2 w-full">

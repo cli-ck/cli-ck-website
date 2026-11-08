@@ -12,6 +12,7 @@ import { motion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import { Dialog, VisuallyHidden } from "radix-ui"
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs"
 import * as React from "react"
 
 import { Button } from "@/components/ui/button"
@@ -195,6 +196,21 @@ export function GlobalHeaderShell({
         </nav>
 
         <div className="flex items-center gap-2">
+          <Show when="signed-out">
+            <SignInButton mode="modal">
+              <Button variant="outline" size="sm" className="rounded-full">
+                Sign in
+              </Button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <Button size="sm" className="hidden rounded-full sm:inline-flex">
+                Create account
+              </Button>
+            </SignUpButton>
+          </Show>
+          <Show when="signed-in">
+            <UserButton />
+          </Show>
           <ThemeToggleControl />
           <div className="relative">
             <Button asChild size="sm" className="rounded-full">

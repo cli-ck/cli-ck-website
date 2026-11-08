@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs"
 import type { Metadata, Viewport } from "next"
 import { Geist_Mono, Inter } from "next/font/google"
 import Script from "next/script"
@@ -107,18 +108,20 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider defaultTheme="dark">
-          <AccentBackdrop />
-          {children}
-        </ThemeProvider>
-        {/* <Analytics /> */}
-        {GOATCOUNTER_CODE ? (
-          <Script
-            data-goatcounter={`https://${GOATCOUNTER_CODE}.goatcounter.com/count`}
-            src="https://gc.zgo.at/count.js"
-            strategy="afterInteractive"
-          />
-        ) : null}
+        <ClerkProvider>
+          <ThemeProvider defaultTheme="dark">
+            <AccentBackdrop />
+            {children}
+          </ThemeProvider>
+          {/* <Analytics /> */}
+          {GOATCOUNTER_CODE ? (
+            <Script
+              data-goatcounter={`https://${GOATCOUNTER_CODE}.goatcounter.com/count`}
+              src="https://gc.zgo.at/count.js"
+              strategy="afterInteractive"
+            />
+          ) : null}
+        </ClerkProvider>
       </body>
     </html>
   )
